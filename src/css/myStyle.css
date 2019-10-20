@@ -15,8 +15,9 @@ h1 {
 }
 
 div.col > button > img {
-    width: 80%;
-    vertical-align: sub;
+    max-height: 90%;
+    max-width: 90%;
+    vertical-align: text-bottom;
 }
 
 div.col > button{
@@ -25,7 +26,7 @@ div.col > button{
 
 /* Jumbotraon section */
 #jumbotron {
-    padding: 7em 0;
+    padding: 1em 0;
 }
 
 .jumbotron-text {
