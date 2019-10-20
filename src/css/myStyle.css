@@ -1,0 +1,236 @@
+body {
+    background-image: url('../img/map/rpgTile_sand.png');
+    background-repeat: repeat;
+    color: #ffffff;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+main {
+    padding: 5em 0;
+}
+
+h1 {
+    font-family: 'Fascinate', cursive;
+    letter-spacing: .25em;
+}
+
+div.col > button > img {
+    width: 80%;
+    vertical-align: sub;
+}
+
+div.col > button{
+    padding: 0;
+}
+
+/* Jumbotraon section */
+#jumbotron {
+    padding: 7em 0;
+}
+
+.jumbotron-text {
+    margin-bottom: 2.5em;
+}
+
+.start-button {
+    color: #ffffff;
+    background-color: #333333;
+    border: 1.25px solid #333333;
+    padding: 1.25em 1.5em 1em 1.5em;
+    border-radius: 10px;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+}
+
+.start-button:hover {
+    color: #333333;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+
+/* Grid Style Adjustment */
+.row {
+    justify-content: center;
+    padding: 0 2em;
+}
+
+.col, .col, .col0, .col1, .col2, .col-2, .col-3, .col-4, .col-5, .col-6, 
+.col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, 
+.col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, 
+.col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, 
+.col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    padding: 0;
+}
+
+
+/* Map */
+div.battleField {
+    padding: 3em 0;
+}
+
+div.col > button {
+    background-color: #333333;
+    border: 1.25px solid #333333;
+    border-radius: 5px;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+
+/*
+**
+**  Screen size adjustment
+**
+*/
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .row {
+        padding: 0 3em;
+    }
+
+    div.col > button {
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 10px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .row {
+        padding: 0 6.5em;
+    }
+
+    div.col > button {
+        width: 2.75em;
+        height: 2.75em;
+        border-radius: 15px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .row {
+        padding: 0 8em;
+    }
+
+    div.col > button {
+        width: 4em;
+        height: 4em;
+        border-radius: 15px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .row {
+        padding: 0 12em;
+    }
+
+    div.col > button {
+        width: 4em;
+        height: 4em;
+    }
+}
+
+
+/* Player Menu */
+#action-menu01 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#action-menu02 {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.command-icon {
+    background-color: transparent;
+    border: none;
+    display: block;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: .5rem;
+    letter-spacing: .25em;
+}
+
+.player-menu label:before {
+    transition: .2s;
+    display: block;
+}
+
+#action-menu01 label:before {
+    content: url('../img/icon/badge_gr.png');
+}
+
+#action-menu01 input:checked ~ label:before {
+    content: url('../img/icon/hud_x.png');
+}
+
+#action-menu02 label:before {
+    content: url('../img/icon/badge_yr.png');
+}
+
+#action-menu02 input:checked ~ label:before {
+    content: url('../img/icon/hud_x.png');
+}
+
+.attack::before {
+    content: url('../img/icon/bomb.png');
+    display: block;
+}
+
+.defend::before {
+    content: url('../img/icon/star.png');
+    display: block;
+}
+
+
+.player-menu label {
+    padding: 15px;
+    background: transparent;
+    color: #ffffff;
+    padding: 0 2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+    font-size: .5rem;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+}
+
+
+
+.player-menu input:checked ~ label:before {
+    content: url('../img/icon/hud_x.png');
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    color: #668ad8;
+}
+
+/* Hide checkbox */
+.player-menu input {
+   display: none;
+}
+
+/* Disable inside */
+.player-menu .hidden_show {
+   height: 0;
+   padding: 0;
+   overflow: hidden;
+   opacity: 0;
+   transition: 0.8s;
+}
+
+.player-menu input:checked ~ .hidden_show {
+   padding: 10px .5em;
+   height: auto;
+   opacity: 1;
+}

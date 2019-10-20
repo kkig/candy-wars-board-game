@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Kaoru Kigoshi">
+    <meta name="description" content="Board game with candy and aliens!">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="#">
+    <title>Candy War</title>
+
+    <!-- Bootstrap core css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Fascinate|Josefin+Sans&display=swap" rel="stylesheet">
+
+    <!-- Custom Style -->
+    <link rel="styelsheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/basicStyle.css">
+    <link rel="stylesheet" href="css/myStyle.css">
+</head>
+<body>
+    <main>
+        <section id="jumbotron">
+            <div class="container text-center">
+                <h1>Candy Wars</h1>
+                <p class="jumbotron-text">Alien and candy bombs!</p>  
+                <a class="start-button" href="#">Start</a>                
+            </div>
+
+        </section>
+        <section id="game-screen">
+            <div class="container text-center">
+
+                <div class="battleField"><!--div#row02.row>(div.col>btn#row02-col$$)*10-->
+
+                    <div id="row01" class="row">
+                        <div class="col"><button type="button" id="row01-col01"></button></div>
+                        <div class="col"><button type="button" id="row01-col02"></button></div>
+                        <div class="col"><button type="button" id="row01-col03"></button></div>
+                        <div class="col"><button type="button" id="row01-col04"></button></div>
+                        <div class="col"><button type="button" id="row01-col05"></button></div>
+                        <div class="col"><button type="button" id="row01-col06"></button></div>
+                        <div class="col"><button type="button" id="row01-col07"></button></div>
+                        <div class="col"><button type="button" id="row01-col08"></button></div>
+                        <div class="col"><button type="button" id="row01-col09"></button></div>
+                        <div class="col"><button type="button" id="row01-col10"></button></div>
+                    </div>
+
+                    <div id="row02" class="row">
+                        <div class="col"><button type="button" id="row02-col01"></button></div>
+                        <div class="col"><button type="button" id="row02-col02"></button></div>
+                        <div class="col"><button type="button" id="row02-col03"></button></div>
+                        <div class="col"><button type="button" id="row02-col04"></button></div>
+                        <div class="col"><button type="button" id="row02-col05"></button></div>
+                        <div class="col"><button type="button" id="row02-col06"></button></div>
+                        <div class="col"><button type="button" id="row02-col07"></button></div>
+                        <div class="col"><button type="button" id="row02-col08"></button></div>
+                        <div class="col"><button type="button" id="row02-col09"></button></div>
+                        <div class="col"><button type="button" id="row02-col10"></button></div>
+                    </div>
+
+                    <div id="row03" class="row">
+                        <div class="col"><button type="button" id="row03-col01"></button></div>
+                        <div class="col"><button type="button" id="row03-col02"></button></div>
+                        <div class="col"><button type="button" id="row03-col03"></button></div>
+                        <div class="col"><button type="button" id="row03-col04"></button></div>
+                        <div class="col"><button type="button" id="row03-col05"></button></div>
+                        <div class="col"><button type="button" id="row03-col06"></button></div>
+                        <div class="col"><button type="button" id="row03-col07"></button></div>
+                        <div class="col"><button type="button" id="row03-col08"></button></div>
+                        <div class="col"><button type="button" id="row03-col09"></button></div>
+                        <div class="col"><button type="button" id="row03-col10"></button></div>
+                    </div>
+
+                    <div id="row04" class="row">
+                        <div class="col"><button type="button" id="row04-col01"></button></div>
+                        <div class="col"><button type="button" id="row04-col02"></button></div>
+                        <div class="col"><button type="button" id="row04-col03"></button></div>
+                        <div class="col"><button type="button" id="row04-col04"></button></div>
+                        <div class="col"><button type="button" id="row04-col05"></button></div>
+                        <div class="col"><button type="button" id="row04-col06"></button></div>
+                        <div class="col"><button type="button" id="row04-col07"></button></div>
+                        <div class="col"><button type="button" id="row04-col08"></button></div>
+                        <div class="col"><button type="button" id="row04-col09"></button></div>
+                        <div class="col"><button type="button" id="row04-col10"></button></div>
+                    </div>
+
+                    <div id="row05" class="row">
+                        <div class="col"><button type="button" id="row05-col01"></button></div>
+                        <div class="col"><button type="button" id="row05-col02"></button></div>
+                        <div class="col"><button type="button" id="row05-col03"></button></div>
+                        <div class="col"><button type="button" id="row05-col04"></button></div>
+                        <div class="col"><button type="button" id="row05-col05"></button></div>
+                        <div class="col"><button type="button" id="row05-col06"></button></div>
+                        <div class="col"><button type="button" id="row05-col07"></button></div>
+                        <div class="col"><button type="button" id="row05-col08"></button></div>
+                        <div class="col"><button type="button" id="row05-col09"></button></div>
+                        <div class="col"><button type="button" id="row05-col10"></button></div>
+                    </div>
+
+                    <div id="row06" class="row">
+                        <div class="col"><button type="button" id="row06-col01"></button></div>
+                        <div class="col"><button type="button" id="row06-col02"></button></div>
+                        <div class="col"><button type="button" id="row06-col03"></button></div>
+                        <div class="col"><button type="button" id="row06-col04"></button></div>
+                        <div class="col"><button type="button" id="row06-col05"></button></div>
+                        <div class="col"><button type="button" id="row06-col06"></button></div>
+                        <div class="col"><button type="button" id="row06-col07"></button></div>
+                        <div class="col"><button type="button" id="row06-col08"></button></div>
+                        <div class="col"><button type="button" id="row06-col09"></button></div>
+                        <div class="col"><button type="button" id="row06-col10"></button></div>
+                    </div>
+
+                    <div id="row07" class="row">
+                        <div class="col"><button type="button" id="row07-col01"></button></div>
+                        <div class="col"><button type="button" id="row07-col02"></button></div>
+                        <div class="col"><button type="button" id="row07-col03"></button></div>
+                        <div class="col"><button type="button" id="row07-col04"></button></div>
+                        <div class="col"><button type="button" id="row07-col05"></button></div>
+                        <div class="col"><button type="button" id="row07-col06"></button></div>
+                        <div class="col"><button type="button" id="row07-col07"></button></div>
+                        <div class="col"><button type="button" id="row07-col08"></button></div>
+                        <div class="col"><button type="button" id="row07-col09"></button></div>
+                        <div class="col"><button type="button" id="row07-col10"></button></div>
+                    </div>
+
+                    <div id="row08" class="row">
+                        <div class="col"><button type="button" id="row08-col01"></button></div>
+                        <div class="col"><button type="button" id="row08-col02"></button></div>
+                        <div class="col"><button type="button" id="row08-col03"></button></div>
+                        <div class="col"><button type="button" id="row08-col04"></button></div>
+                        <div class="col"><button type="button" id="row08-col05"></button></div>
+                        <div class="col"><button type="button" id="row08-col06"></button></div>
+                        <div class="col"><button type="button" id="row08-col07"></button></div>
+                        <div class="col"><button type="button" id="row08-col08"></button></div>
+                        <div class="col"><button type="button" id="row08-col09"></button></div>
+                        <div class="col"><button type="button" id="row08-col10"></button></div>
+                    </div>
+
+                    <div id="row09" class="row">
+                        <div class="col"><button type="button" id="row09-col01"></button></div>
+                        <div class="col"><button type="button" id="row09-col02"></button></div>
+                        <div class="col"><button type="button" id="row09-col03"></button></div>
+                        <div class="col"><button type="button" id="row09-col04"></button></div>
+                        <div class="col"><button type="button" id="row09-col05"></button></div>
+                        <div class="col"><button type="button" id="row09-col06"></button></div>
+                        <div class="col"><button type="button" id="row09-col07"></button></div>
+                        <div class="col"><button type="button" id="row09-col08"></button></div>
+                        <div class="col"><button type="button" id="row09-col09"></button></div>
+                        <div class="col"><button type="button" id="row09-col10"></button></div>
+                    </div>
+
+                    <div id="row10" class="row">
+                        <div class="col"><button type="button" id="row10-col01"></button></div>
+                        <div class="col"><button type="button" id="row10-col02"></button></div>
+                        <div class="col"><button type="button" id="row10-col03"></button></div>
+                        <div class="col"><button type="button" id="row10-col04"></button></div>
+                        <div class="col"><button type="button" id="row10-col05"></button></div>
+                        <div class="col"><button type="button" id="row10-col06"></button></div>
+                        <div class="col"><button type="button" id="row10-col07"></button></div>
+                        <div class="col"><button type="button" id="row10-col08"></button></div>
+                        <div class="col"><button type="button" id="row10-col09"></button></div>
+                        <div class="col"><button type="button" id="row10-col10"></button></div>
+                    </div>
+
+                </div>    
+                
+            </div>
+
+        </section>
+
+        <section id="menu-section">
+            <div class="container">
+                <div class="row">
+
+                    <div class="player-menu" id="action-menu01">
+                        <input type="checkbox" id="player-menu01"/>
+                        <div class="hidden_show">
+                            <!--Hidden menu-->
+                            <button class="command-icon attack">Attack</button>
+                            <button class="command-icon defend">Defend</button>
+                        </div> 
+                        <label for="player-menu01">Menu</label>
+                    </div>
+
+                    <div class="player-menu" id="action-menu02">
+                        <input type="checkbox" id="player-menu02">
+                        <div class="hidden_show">
+                            <!--Hidden menu-->
+                            <button type="button" class="command-icon attack">Attack</button>
+                            <button type="button" class="command-icon defend">Defend</button>
+                        </div>
+                        <label for="player-menu02">Menu</label>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </section>        
+
+    </main>
+
+
+    <!-- Bootstrap core -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Game core -->
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+body {
+  font-size: 16px;
+  box-sizing: border-box;
+  letter-spacing: .025em;
+}
+
+.btn {
+  font-size: .75rem;
+  padding: .75em 1.5em;
+  letter-spacing: .15rem;
+  border: 2px solid #333333;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  color: #333333;
+  background-color: transparent;
+}
