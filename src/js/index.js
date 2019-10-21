@@ -16,18 +16,13 @@ for (let i = 0; i + 10 <= cells.length; i += 10) {
 const playerOneImage = 'img/player/player_gr.png';
 const playerTwoImage = 'img/player/player_yr.png';
 
+/* Select cells */
 class MapIcon {
     constructor(row, column) {
         this.row = row;
         this.column = column;
     }
 }
-
-const generatePlayer = (image, place) => {
-    const playerImage = document.createElement('img');
-    playerImage.setAttribute('src', image);
-    place.append(playerImage);
-};
 
 const pickCell = () => {
     const row = Math.floor(Math.random() * 9);
@@ -37,20 +32,66 @@ const pickCell = () => {
     return new MapIcon(row, column);
 }
 
-const generateIcons = () => {
-    let playerOne = pickCell();
-    let playerTwo = pickCell();
+const generatePlayer = (image, place) => {
+    const playerImage = document.createElement('img');
+    playerImage.setAttribute('src', image);
+    place.append(playerImage);
+};
 
-    const sameCell = playerTwo.row == playerOne.row && playerTwo.column == playerOne.column;
+
+const generateIcons = () => {
+    
+    let isDuplicate = false;
+    let isTouching = false;
+
+    let playerOne = pickCell();
+    let playerTwo;
+
     //const cellsTouchXUp = playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == 1;
     //const cellsTouchXDown = playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == -1;
 
     //console.log(parseInt(playerTwo.row));
-    /*
-    while(sameCell) {
+
+    const evaluateCells = () => {
         playerTwo = pickCell();
+        
+        // Avoid picking same cells
+        playerTwo.row == playerOne.row && playerTwo.column == playerOne.column ? isDuplicate = true : isDuplicate = false;
+
+        // Avoid vertical touch
+        if(playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == 1) {
+            return isTouching = true;
+        } else if (playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == -1) {
+            return isTouching = true;
+        } else {
+            isTouching = false;
+        }
+
+        // Avoid horizontal touch
+        if(playerTwo.row == playerOne.row && parseInt(playerTwo.column) - parseInt(playerOne.column) == 1) {
+            return isTouching = true;
+        } else if (playerTwo.row == playerOne.row && parseInt(playerTwo.column) - parseInt(playerOne.column) == -1) {
+            return isTouching = true;
+        } else {
+            isTouching = false;
+        }
+
+    };
+
+    evaluateCells();
+    
+    // Reselect cell
+    while(isDuplicate || isTouching) {
+
+        // Reset Values
+        isDuplicate = false;
+        isTouching = false;
+
+        evaluateCells();
     }
-    */
+    
+    console.log('P1 row: ' + playerOne.row + ' col: ' + playerOne.column);
+    console.log('P2 row: ' + playerTwo.row + ' col: ' + playerTwo.column);
 
     const generateCharactors = () => {
         generatePlayer(playerOneImage, cellsArray[playerOne.row][playerOne.column]);
