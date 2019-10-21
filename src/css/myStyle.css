@@ -142,13 +142,13 @@ div.col > button {
 /* Player Menu */
 #action-menu01 {
     position: fixed;
-    bottom: 0;
+    bottom: 3em;
     left: 0;
 }
 
 #action-menu02 {
     position: fixed;
-    bottom: 0;
+    bottom: 3em;
     right: 0;
 }
 
@@ -205,6 +205,7 @@ div.col > button {
     font-size: .5rem;
     text-transform: uppercase;
     letter-spacing: .25em;
+    margin: 0;
 }
 
 
@@ -234,4 +235,27 @@ div.col > button {
    padding: 10px .5em;
    height: auto;
    opacity: 1;
+}
+
+
+/* Life point */
+.player-life {
+    padding: .75em 1.25em;
+}
+
+#player01-life-icon {
+    position: fixed;
+    bottom: 0;
+    left: 0;    
+}
+
+#player02-life-icon {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+
+.life-x {
+    padding: 0 .25em;
 }
