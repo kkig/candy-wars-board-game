@@ -1,117 +1,71 @@
-/* Select DOM element */
-const cell = document.getElementsByClassName('cell');
-
-
-/* Create array of cells */
-let cells = [...cell];
-let cellsArray = [];
-
-// Device array by row
-for (let i = 0; i + 10 <= cells.length; i += 10) {
-    cellsArray.push(cells.slice(i, i + 10));
-}
-
-
-/* Generate Charactor */
+/* Charactor Images */
 const playerOneImage = 'img/player/player_gr.png';
 const playerTwoImage = 'img/player/player_yr.png';
 
-/* Select cells */
-class MapIcon {
-    constructor(row, column) {
-        this.row = row;
-        this.column = column;
+/* Weapon Images */
+const weaponOneImage = 'img/weapon/bean_blue.png';
+const weaponTwoImage = 'img/weapon/bean_green.png';
+const weaponThreeImage = 'img/weapon/jelly_yellow.png';
+const weaponFourImage = 'img/weapon/wrappedtrans_red.png';
+
+
+/* Setting */
+const numberOfColumns = 6;
+const numberOfRows = 5;
+const totalNumberOfCells = numberOfColumns * numberOfRows;
+const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
+
+
+/* Map out the board */
+let map = [];
+
+const createMapOverview = () => {
+    // create array of 0 * total cells
+    const allCells = [];
+    for(i = 0; i < totalNumberOfCells; i++) {
+        allCells.push(0);
     }
-}
 
-const pickCell = () => {
-    const row = Math.floor(Math.random() * 9);
-    const column = Math.floor(Math.random() * 10);
-    
-    console.log('Row: ' + row + ' Col: ' + column);
-    return new MapIcon(row, column);
-}
-
-const generatePlayer = (image, place) => {
-    const playerImage = document.createElement('img');
-    playerImage.setAttribute('src', image);
-    place.append(playerImage);
+    // Split into array per row
+    for(i = 0; i + numberOfColumns <= totalNumberOfCells; i += numberOfColumns) {
+        map.push(allCells.slice(i, i + numberOfColumns));
+    }
+    console.log(map);
 };
 
+createMapOverview();
 
-const generateIcons = () => {
-    
-    let isDuplicate = false;
-    let isTouching = false;
 
-    let playerOne = pickCell();
-    let playerTwo;
 
-    //const cellsTouchXUp = playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == 1;
-    //const cellsTouchXDown = playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == -1;
-
-    //console.log(parseInt(playerTwo.row));
-
-    const evaluateCells = () => {
-        playerTwo = pickCell();
-        
-        // Avoid picking same cells
-        playerTwo.row == playerOne.row && playerTwo.column == playerOne.column ? isDuplicate = true : isDuplicate = false;
-
-        // Avoid vertical touch
-        if(playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == 1) {
-            return isTouching = true;
-        } else if (playerTwo.column == playerOne.column && parseInt(playerTwo.row) - parseInt(playerOne.row) == -1) {
-            return isTouching = true;
-        } else {
-            isTouching = false;
-        }
-
-        // Avoid horizontal touch
-        if(playerTwo.row == playerOne.row && parseInt(playerTwo.column) - parseInt(playerOne.column) == 1) {
-            return isTouching = true;
-        } else if (playerTwo.row == playerOne.row && parseInt(playerTwo.column) - parseInt(playerOne.column) == -1) {
-            return isTouching = true;
-        } else {
-            isTouching = false;
-        }
-
-    };
-
-    evaluateCells();
-    
-    // Reselect cell
-    while(isDuplicate || isTouching) {
-
-        // Reset Values
-        isDuplicate = false;
-        isTouching = false;
-
-        evaluateCells();
-    }
-    
-    console.log('P1 row: ' + playerOne.row + ' col: ' + playerOne.column);
-    console.log('P2 row: ' + playerTwo.row + ' col: ' + playerTwo.column);
-
-    const generateCharactors = () => {
-        generatePlayer(playerOneImage, cellsArray[playerOne.row][playerOne.column]);
-        generatePlayer(playerTwoImage, cellsArray[playerTwo.row][playerTwo.column]);
-    };
-
-    generateCharactors();
+/* Set up board to start */
+const generateCells = () => {
+    const cell = document.createElement('div');
+    cell.classList.add(`col-${columnDivide}`,'box', 'player-one');
+    $('.board').append(cell);
 };
-
-
 
 
 /* Event Listener */
 $('.start-button').on('click', function(e) {
     e.preventDefault();
 
+    // reset board
+    $('.board').html('');
+
+    for(i = 0; i < totalNumberOfCells; i++) {
+        generateCells();
+    }
+
+
+    // test to change life
+    $('#player02-life').text('90');
+
+    /*
     // Reset Cells
     for(let cell of cells) {
         cell.innerHTML = '';
     }
 
-    generateIcons();
+    displayIcons();
+    */
 });
