@@ -8,49 +8,138 @@ const weaponTwoImage = 'img/weapon/bean_green.png';
 const weaponThreeImage = 'img/weapon/jelly_yellow.png';
 const weaponFourImage = 'img/weapon/wrappedtrans_red.png';
 
-
 /* Setting */
 const numberOfColumns = 6;
 const numberOfRows = 5;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
 const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 
+// Number of each weapons
+const weaponQuantity = 2;
+
+/* Icons */
+class MapIcon {
+    constructor(id, image) {
+        this.id = id;
+        this.image = image;
+    }
+}
+
+const playerOne = new MapIcon(1, playerOneImage);
+const playerTwo = new MapIcon(2, playerTwoImage);
+
+const weaponOne = new MapIcon(3, weaponOneImage);
+const weaponTwo = new MapIcon(4, weaponTwoImage);
+const weaponThree = new MapIcon(5, weaponThreeImage);
+const weaponFour = new MapIcon(6, weaponFourImage);
+
 
 /* Map out the board */
+
+// Map of avairable cell
+let allCells = [];
 let map = [];
 
-const createMapOverview = () => {
+// merge: allCells = [].concat(...map);
+
+const createMap = () => {
     // create array of 0 * total cells
-    const allCells = [];
     for(i = 0; i < totalNumberOfCells; i++) {
         allCells.push(0);
     }
+};
+
+
+const createMapOverview = () => {
 
     // Split into array per row
     for(i = 0; i + numberOfColumns <= totalNumberOfCells; i += numberOfColumns) {
         map.push(allCells.slice(i, i + numberOfColumns));
     }
-    console.log(map);
 };
 
-createMapOverview();
 
+
+/* select cells to generate icons */
+const checkDuplicate = () => {
+    let row;
+    let column;
+
+    const selectRandomCells = () => {
+        row = Math.floor(Math.random() * numberOfRows);
+        column = Math.floor(Math.random() * numberOfColumns);
+    };
+
+    const updateMap = iconId => {
+        selectRandomCells();
+        map[row][column] = iconId;
+    };
+
+    const selectWeaponCells = weaponID => {
+        selectRandomCells();
+
+        // Avoid duplicate
+        while(map[row][column] != 0) {
+            selectRandomCells();
+        }
+
+        updateMap(weaponID);
+    };
+
+    createMapOverview();
+    updateMap(1);
+    selectWeaponCells(3);
+    console.log(map);
+};
 
 
 /* Set up board to start */
 const generateCells = () => {
-    const cell = document.createElement('div');
-    cell.classList.add(`col-${columnDivide}`,'box', 'player-one');
-    $('.board').append(cell);
+    checkDuplicate();
+    
+    // Update allCell array
+    allCells = [].concat(...map);
+
+    
+    for(let eachCell of allCells) {
+        const cell = document.createElement('div');
+        
+       switch (eachCell) {
+           case 1:
+                cell.classList.add(`col-${columnDivide}`,'box', 'map-icon','player-one');
+                break;
+
+            case 2:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'player-two');
+                break;
+            case 3:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-one');
+            default:
+                    cell.classList.add(`col-${columnDivide}`,'box');
+                break;
+       }
+        /*
+       if(eachCell = 1) {
+           console.log('hello');
+       }
+       */
+    
+        $('.board').append(cell);
+    }
+    
 };
 
 
 /* Event Listener */
 $('.start-button').on('click', function(e) {
     e.preventDefault();
+    
 
     // reset board
     $('.board').html('');
+    allCells = [];
+    map = [];
+    createMap();
 
     for(i = 0; i < totalNumberOfCells; i++) {
         generateCells();

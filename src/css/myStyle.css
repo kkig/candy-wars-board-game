@@ -53,11 +53,39 @@ h1 {
     min-height: 3em;
 }
 
-.player-one {
-    background-image: url('../img/player/player_yr.png');
+/* Map Icons */
+.map-icon {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.player-one {
+    background-image: url('../img/player/player_yr.png');
+}
+
+.player-two {
+    background-image: url('../img/player/player_gr.png');
+}
+
+.weapon-one {
+    background-image: url('../img/weapon/bean_blue.png');
+    background-size: 2em;
+}
+
+.weapon-two {
+    background-image: url('../img/weapon/bean_green.png');
+    background-size: 2em;
+}
+
+.weapon-three {
+    background-image: url('../img/weapon/jelly_yellow.png');
+    background-size: 2em;
+}
+
+.weapon-four {
+    background-image: url('../img/weapon/wrappedtrans_red.png');
+    background-size: 2em;
 }
 
 
