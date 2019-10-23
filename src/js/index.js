@@ -71,7 +71,6 @@ const checkDuplicate = () => {
     };
 
     const updateMap = iconId => {
-        selectRandomCells();
         map[row][column] = iconId;
     };
 
@@ -87,9 +86,14 @@ const checkDuplicate = () => {
     };
 
     createMapOverview();
-    updateMap(1);
     selectWeaponCells(3);
-    console.log(map);
+    selectWeaponCells(3);
+    selectWeaponCells(4);
+    selectWeaponCells(4);
+    selectWeaponCells(5);
+    selectWeaponCells(5);
+    selectWeaponCells(6);
+    selectWeaponCells(6);
 };
 
 
@@ -98,6 +102,7 @@ const generateCells = () => {
     checkDuplicate();
     
     // Update allCell array
+    console.log(map);
     allCells = [].concat(...map);
 
     
@@ -108,12 +113,21 @@ const generateCells = () => {
            case 1:
                 cell.classList.add(`col-${columnDivide}`,'box', 'map-icon','player-one');
                 break;
-
             case 2:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'player-two');
                 break;
             case 3:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-one');
+                break;
+            case 4:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-two');
+                break;
+            case 5:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-three');
+                break;
+            case 6:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-four');
+                break;
             default:
                     cell.classList.add(`col-${columnDivide}`,'box');
                 break;

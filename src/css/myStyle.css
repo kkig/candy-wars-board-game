@@ -62,30 +62,32 @@ h1 {
 
 .player-one {
     background-image: url('../img/player/player_yr.png');
+    background-size: 1.5em;
 }
 
 .player-two {
     background-image: url('../img/player/player_gr.png');
+    background-size: 1.5em;
 }
 
 .weapon-one {
     background-image: url('../img/weapon/bean_blue.png');
-    background-size: 2em;
+    background-size: 1.75em;
 }
 
 .weapon-two {
     background-image: url('../img/weapon/bean_green.png');
-    background-size: 2em;
+    background-size: 1.75em;
 }
 
 .weapon-three {
     background-image: url('../img/weapon/jelly_yellow.png');
-    background-size: 2em;
+    background-size: 1.75em;
 }
 
 .weapon-four {
     background-image: url('../img/weapon/wrappedtrans_red.png');
-    background-size: 2em;
+    background-size: 2.5em;
 }
 
 
@@ -161,6 +163,7 @@ h1 {
     text-transform: uppercase;
     letter-spacing: .25em;
     margin: 0;
+    text-align: center;
 }
 
 
