@@ -14,8 +14,12 @@ const numberOfRows = 5;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
 const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 
+const maxRowIndex = numberOfRows - 1;
+const maxColumnIndex = numberOfColumns - 1;
+
 // Number of each weapons
-const weaponQuantity = 2;
+const weaponQuantity = Math.floor(totalNumberOfCells * .15); // About 15% of cell will be candy
+
 
 /* Icons */
 class MapIcon {
@@ -42,6 +46,7 @@ let map = [];
 
 // merge: allCells = [].concat(...map);
 
+
 const createMap = () => {
     // create array of 0 * total cells
     for(i = 0; i < totalNumberOfCells; i++) {
@@ -49,9 +54,7 @@ const createMap = () => {
     }
 };
 
-
-const createMapOverview = () => {
-
+const createMapOverview = () => {  
     // Split into array per row
     for(i = 0; i + numberOfColumns <= totalNumberOfCells; i += numberOfColumns) {
         map.push(allCells.slice(i, i + numberOfColumns));
@@ -61,48 +64,134 @@ const createMapOverview = () => {
 
 
 /* select cells to generate icons */
-const checkDuplicate = () => {
-    let row;
-    let column;
+let row;
+let column;
 
-    const selectRandomCells = () => {
-        row = Math.floor(Math.random() * numberOfRows);
-        column = Math.floor(Math.random() * numberOfColumns);
-    };
+const selectRandomCells = () => {
+    row = Math.floor(Math.random() * numberOfRows);
+    column = Math.floor(Math.random() * numberOfColumns);
+};
 
-    const updateMap = iconId => {
-        map[row][column] = iconId;
-    };
 
-    const selectWeaponCells = weaponID => {
+const updateMap = iconId => {
+    map[row][column] = iconId;
+};
+
+
+const selectIconCell = iconID => {
+    selectRandomCells();
+
+    // Avoid duplicate
+    while(map[row][column] != 0) {
+        selectRandomCells();
+    }
+
+    updateMap(iconID);
+};
+
+const selectPlayerTwo = () => {
+    const maxRowIndex = numberOfRows - 1;
+    const maxColumnIndex = numberOfColumns - 1;
+
+    let isTouching = false;
+    selectRandomCells();
+
+    while(map[row][column] > 0 || isTouching) {
         selectRandomCells();
 
-        // Avoid duplicate
-        while(map[row][column] != 0) {
-            selectRandomCells();
+        let isHeadTouching = false;
+        let isFootTouching = false;
+        let isLeftTouching = false;
+        let isRightTouching = false;
+        //console.log(map[row - 1][column]);
+        //console.log('row: ' + row + ' Col: ' + column);
+        //console.log(map);
+
+        
+        // Check Above
+        if(row < 1) {
+            isHeadTouching = false;
+        } else if (row > 0 && map[row - 1][column] != 1) {
+            isHeadTouching = false;
+        } else {
+            console.log('Head is touching!');
+            console.log('row: ' + row + ' Col: ' + column);
+            console.log(map);
+            isHeadTouching = true;
+        }        
+        
+        // Check Below
+        if(row >= maxRowIndex) {
+            isFootTouching = false;
+        } else if(row < (numberOfRows - 1) && map[row + 1][column] != 1) {
+            isFootTouching = false;
+            console.log()
+        } else {
+            console.log('Foot is touching!');
+            console.log('row: ' + row + ' Col: ' + column);
+            console.log(map);
+            isFootTouching = true;
         }
 
-        updateMap(weaponID);
-    };
+        // Check Left
+        if(column < 1) {
+            isLeftTouching = false;
+        } else if(column > 0 && map[row][column - 1] != 1) {
+            isLeftTouching = false;
+        } else {
+            console.log('Left is touching!');
+            console.log('row: ' + row + ' Col: ' + column);
+            console.log(map);
+            isLeftTouching = true;
+        }
 
-    createMapOverview();
-    selectWeaponCells(3);
-    selectWeaponCells(3);
-    selectWeaponCells(4);
-    selectWeaponCells(4);
-    selectWeaponCells(5);
-    selectWeaponCells(5);
-    selectWeaponCells(6);
-    selectWeaponCells(6);
+        // Check Right
+        if(column < 1) {
+            isRightTouching = false;
+        } else if(column < maxColumnIndex && map[row][column + 1] != 1) {
+            isRightTouching = false;
+        } else {
+            isRightTouching = true;
+        }
+
+        !isHeadTouching && !isRightTouching && !isFootTouching && !isLeftTouching ? isTouching = false : isTouching = true;        
+
+    }
+    //console.log(map);
+    updateMap(2);
+    
+
+};
+
+
+const selectWeaponCells = () => {
+    // Generate weapons
+    for(let i = 0; i < weaponQuantity; i++) {
+        selectIconCell(3);
+        selectIconCell(4);
+        selectIconCell(5);
+        selectIconCell(6);
+    }
+   
 };
 
 
 /* Set up board to start */
 const generateCells = () => {
-    checkDuplicate();
+    // Devide all cells per row
+    createMapOverview();
     
+    // Select Weapon cells
+    selectWeaponCells();
+
+    // Select Player One cell
+    selectIconCell(1);
+
+    // Select Player Two cell
+    selectPlayerTwo();    
+    
+
     // Update allCell array
-    console.log(map);
     allCells = [].concat(...map);
 
     
