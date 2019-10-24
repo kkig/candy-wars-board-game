@@ -90,6 +90,12 @@ h1 {
     background-size: 2.5em;
 }
 
+.rock {
+    background-image: url('../img/map/rock.png');
+    background-position: bottom;
+    background-size: 3.5em;
+}
+
 
 
 /* 
@@ -125,7 +131,7 @@ h1 {
 }
 
 #action-menu01 label:before {
-    content: url('../img/icon/badge_gr.png');
+    content: url('../img/icon/badge_yr.png');
 }
 
 #action-menu01 input:checked ~ label:before {
@@ -133,7 +139,7 @@ h1 {
 }
 
 #action-menu02 label:before {
-    content: url('../img/icon/badge_yr.png');
+    content: url('../img/icon/badge_gr.png');
 }
 
 #action-menu02 input:checked ~ label:before {

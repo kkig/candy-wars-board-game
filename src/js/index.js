@@ -17,25 +17,30 @@ const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 const maxRowIndex = numberOfRows - 1;
 const maxColumnIndex = numberOfColumns - 1;
 
+// Number of rocks
+const rockQuantity = Math.floor(totalNumberOfCells * .20);  // 20% of map
+
 // Number of each weapons
-const weaponQuantity = Math.floor(totalNumberOfCells * .15); // About 15% of cell will be candy
+const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
 
 
 /* Icons */
 class MapIcon {
-    constructor(id, image) {
+    constructor(id, name) {
         this.id = id;
-        this.image = image;
+        this.name = name;
     }
 }
 
-const playerOne = new MapIcon(1, playerOneImage);
-const playerTwo = new MapIcon(2, playerTwoImage);
+const playerOne = new MapIcon(1, 'Squeaky');
+const playerTwo = new MapIcon(2, 'Mr.Pickles');
 
-const weaponOne = new MapIcon(3, weaponOneImage);
-const weaponTwo = new MapIcon(4, weaponTwoImage);
-const weaponThree = new MapIcon(5, weaponThreeImage);
-const weaponFour = new MapIcon(6, weaponFourImage);
+const weaponOne = new MapIcon(3, 'Blue Beans Bomb');
+const weaponTwo = new MapIcon(4, 'Green Beans Bomb');
+const weaponThree = new MapIcon(5, 'Yellow Jelly Bomb');
+const weaponFour = new MapIcon(6, 'Red Candy Bomb');
+
+const rock = new MapIcon(7, 'Dummy Rock');
 
 
 /* Map out the board */
@@ -117,18 +122,9 @@ const selectPlayerTwo = () => {
         // Check Above
         if(row < 1) {
             isHeadTouching = false;
-            console.log('row < 1');
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
         } else if (row > 0 && map[row - 1][column] != 1) {
-            console.log(row > 0 && map[row - 1][column] != 1);
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
             isHeadTouching = false;
         } else {
-            console.log('Head is touching!');
-            console.log('row: ' + row + ' Col: ' + column);
-            console.log(map);
             isHeadTouching = true;
         }   
 
@@ -137,57 +133,28 @@ const selectPlayerTwo = () => {
         // Check Below
         if(row >= maxRowIndex) {
             isFootTouching = false;
-            console.log('row >= maxRowIndex');
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
         } else if(row < maxRowIndex && map[row + 1][column] != 1) {
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log('Below:' + map[row + 1][column]);
-            console.log(map);
             isFootTouching = false;
         } else {
-            console.log('Foot is touching!');
-            console.log('row: ' + row + ' Col: ' + column);
-            console.log(map);
             isFootTouching = true;
         }
 
         // Check Left
         if(column < 1) {
             isLeftTouching = false;
-            console.log('column < 1');
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
         } else if(column > 0 && map[row][column - 1] != 1) {
-            console.log(column > 0 && map[row][column - 1] != 1);
-            console.log('leftColumn: ' + map[row][column - 1]);
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
             isLeftTouching = false;
         } else {
-            console.log('Left is touching!');
-            console.log('row: ' + row + ' Col: ' + column);
-            console.log(map);
             isLeftTouching = true;
         }   
 
         // Check Right
         if(column >= maxColumnIndex) {
-            console.log('column >= maxColumnIndex');
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
             isRightTouching = false;
         } else if(column < maxColumnIndex && map[row][column + 1] != 1) {
-            console.log(map[row][column + 1]);
-            console.log('rightColumn: ' + map[row][column + 1]);
-            console.log('Row: ' + row + ' Col: ' + column);
-            console.log(map);
             isRightTouching = false;
         } else {
             isRightTouching = true;
-            console.log('Right is touching!');
-            console.log('row: ' + row + ' Col: ' + column);
-            console.log(map);
         }
 
         /*
@@ -201,6 +168,12 @@ const selectPlayerTwo = () => {
     updateMap(2);
     
 
+};
+
+const selectRockCells = () => {
+    for(let i = 0; i < rockQuantity; i++) {
+        selectIconCell(7);
+    }
 };
 
 
@@ -220,6 +193,9 @@ const selectWeaponCells = () => {
 const generateCells = () => {
     // Devide all cells per row
     createMapOverview();
+
+    // Place rocks
+    selectRockCells();
     
     // Select Weapon cells
     selectWeaponCells();
@@ -257,6 +233,10 @@ const generateCells = () => {
             case 6:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-four');
                 break;
+            case 7:
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'rock');
+                break;
+
             default:
                     cell.classList.add(`col-${columnDivide}`,'box');
                 break;
