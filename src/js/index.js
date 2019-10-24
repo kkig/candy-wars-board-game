@@ -90,42 +90,61 @@ const selectIconCell = iconID => {
 };
 
 const selectPlayerTwo = () => {
-    const maxRowIndex = numberOfRows - 1;
-    const maxColumnIndex = numberOfColumns - 1;
 
-    let isTouching = false;
-    selectRandomCells();
+    let isViolation = true;
 
-    while(map[row][column] > 0 || isTouching) {
+    while(isViolation) {
         selectRandomCells();
 
-        let isHeadTouching = false;
-        let isFootTouching = false;
-        let isLeftTouching = false;
-        let isRightTouching = false;
+        //const leftColumn = map[row][column - 1];
+        //const rightColumn = map[row][column + 1];
+
         //console.log(map[row - 1][column]);
         //console.log('row: ' + row + ' Col: ' + column);
         //console.log(map);
 
-        
+        let isDuplicate = false;
+
+        // Check Duplicate
+        map[row][column] > 0 ? isDuplicate = true : isDuplicate = false;
+
+
+        let isHeadTouching = false;
+        let isRightTouching = false; 
+        let isFootTouching = false;        
+        let isLeftTouching = false;       
+
         // Check Above
         if(row < 1) {
             isHeadTouching = false;
+            console.log('row < 1');
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
         } else if (row > 0 && map[row - 1][column] != 1) {
+            console.log(row > 0 && map[row - 1][column] != 1);
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
             isHeadTouching = false;
         } else {
             console.log('Head is touching!');
             console.log('row: ' + row + ' Col: ' + column);
             console.log(map);
             isHeadTouching = true;
-        }        
-        
+        }   
+
+
+
         // Check Below
         if(row >= maxRowIndex) {
             isFootTouching = false;
-        } else if(row < (numberOfRows - 1) && map[row + 1][column] != 1) {
+            console.log('row >= maxRowIndex');
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
+        } else if(row < maxRowIndex && map[row + 1][column] != 1) {
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log('Below:' + map[row + 1][column]);
+            console.log(map);
             isFootTouching = false;
-            console.log()
         } else {
             console.log('Foot is touching!');
             console.log('row: ' + row + ' Col: ' + column);
@@ -136,26 +155,47 @@ const selectPlayerTwo = () => {
         // Check Left
         if(column < 1) {
             isLeftTouching = false;
+            console.log('column < 1');
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
         } else if(column > 0 && map[row][column - 1] != 1) {
+            console.log(column > 0 && map[row][column - 1] != 1);
+            console.log('leftColumn: ' + map[row][column - 1]);
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
             isLeftTouching = false;
         } else {
             console.log('Left is touching!');
             console.log('row: ' + row + ' Col: ' + column);
             console.log(map);
             isLeftTouching = true;
-        }
+        }   
 
         // Check Right
-        if(column < 1) {
+        if(column >= maxColumnIndex) {
+            console.log('column >= maxColumnIndex');
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
             isRightTouching = false;
         } else if(column < maxColumnIndex && map[row][column + 1] != 1) {
+            console.log(map[row][column + 1]);
+            console.log('rightColumn: ' + map[row][column + 1]);
+            console.log('Row: ' + row + ' Col: ' + column);
+            console.log(map);
             isRightTouching = false;
         } else {
             isRightTouching = true;
+            console.log('Right is touching!');
+            console.log('row: ' + row + ' Col: ' + column);
+            console.log(map);
         }
 
-        !isHeadTouching && !isRightTouching && !isFootTouching && !isLeftTouching ? isTouching = false : isTouching = true;        
+        /*
 
+        !isHeadTouching && !isRightTouching && !isFootTouching && !isLeftTouching ? isViolation = false : isViolation = true;        
+        isDuplicate || isFootTouching || isLeftTouching ? isViolation = true : isViolation = false;
+        */
+        isDuplicate || isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isViolation = true : isViolation = false;
     }
     //console.log(map);
     updateMap(2);
