@@ -1,17 +1,19 @@
-/* Charactor Images */
+/* Images */
+
 const playerOneImage = 'img/player/player_gr.png';
 const playerTwoImage = 'img/player/player_yr.png';
 
-/* Weapon Images */
 const weaponOneImage = 'img/weapon/bean_blue.png';
 const weaponTwoImage = 'img/weapon/bean_green.png';
 const weaponThreeImage = 'img/weapon/jelly_yellow.png';
 const weaponFourImage = 'img/weapon/wrappedtrans_red.png';
 
-/* Obstacle Image */
 const obstacleOneImage = 'img/map/rock.png';
 
+
+
 /* Setting */
+
 const numberOfColumns = 6;
 const numberOfRows = 5;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
@@ -20,11 +22,9 @@ const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 const maxRowIndex = numberOfRows - 1;
 const maxColumnIndex = numberOfColumns - 1;
 
-// Number of rocks
-const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // 20% of map
-
-// Number of each weapons
+const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // About 25% of map
 const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
+
 
 
 /* Icons */
@@ -44,20 +44,20 @@ const weaponTwo = new MapIcon(4, 'Green Beans Bomb', weaponTwoImage);
 const weaponThree = new MapIcon(5, 'Yellow Jelly Bomb', weaponThreeImage);
 const weaponFour = new MapIcon(6, 'Red Candy Bomb', weaponFourImage);
 
-const obstacle = new MapIcon(7, 'Dummy Rock', obstacleOneImage);
+const obstacleOne = new MapIcon(7, 'Dummy Rock', obstacleOneImage);
+
 
 
 /* Map out the board */
 
-// Map of avairable cell
+// Map of all cell
 let allCells = [];
 let map = [];
 
 // merge: allCells = [].concat(...map);
 
-
 const createMap = () => {
-    // create array of 0 * total cells
+    // create array of all cells
     for(i = 0; i < totalNumberOfCells; i++) {
         allCells.push(0);
     }
@@ -85,7 +85,7 @@ const selectRandomCells = () => {
 const updateMap = icon => {
     map[row][column] = icon.id;
 
-    // Add placement info to player class
+    // Store placement info to player class
     if(icon.id < 3) {
         icon.row = row;
         icon.column = column;
@@ -158,20 +158,19 @@ const selectPlayerTwo = () => {
             isRightTouching = true;
         }
 
+        // Chell all the violations
         isDuplicate || isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isViolation = true : isViolation = false;
     }
 
-    // Update map
     updateMap(playerTwo);
 
 };
 
 const selectObstacleCells = () => {
     for(let i = 0; i < obstacleQuantity; i++) {
-        selectIconCell(obstacle);
+        selectIconCell(obstacleOne);
     }
 };
-
 
 const selectWeaponCells = () => {
     // Generate weapons
@@ -242,6 +241,9 @@ const generateCells = () => {
     }
     
 };
+
+/* Movements */
+
 
 
 /* Event Listener */

@@ -96,6 +96,15 @@ h1 {
     background-size: 3.5em;
 }
 
+/* Box classes */
+.player-one-active {
+    border: 2px solid #FFC733;
+}
+
+.player-two-active {
+    border: 2px solid #3FE369;
+}
+
 
 
 /* 
