@@ -105,13 +105,13 @@ h1 {
 */
 #action-menu01 {
     position: fixed;
-    bottom: 3em;
+    bottom: 3.5em;
     left: 0;
 }
 
 #action-menu02 {
     position: fixed;
-    bottom: 3em;
+    bottom: 3.5em;
     right: 0;
 }
 
@@ -202,24 +202,44 @@ h1 {
 }
 
 
-/* Life point */
-.player-life {
+/* Counters */
+.player-counter-section {
     padding: .75em 1.25em;
+    font-size: .75em;
 }
+
+
+.player-counter-section > img {
+    width: 1.5em;
+}
+
 
 #player01-life-icon {
     position: fixed;
-    bottom: 0;
+    bottom: 2em;
     left: 0;    
 }
 
+#player01-weapon-icon {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
 #player02-life-icon {
+    position: fixed;
+    bottom: 2em;
+    right: 0;
+}
+
+#player02-weapon-icon {
     position: fixed;
     bottom: 0;
     right: 0;
 }
 
 
-.life-x {
+
+.counter-x {
     padding: 0 .25em;
 }

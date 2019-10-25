@@ -7,7 +7,7 @@
     <meta name="description" content="Board game with candy and aliens!">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="img/icon/badge_yr.png">
-    <title>Candy War</title>
+    <title>Candy Wars</title>
 
     <!-- Bootstrap core css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -25,7 +25,7 @@
         <section id="jumbotron">
             <div class="container text-center">
                 <h1>Candy Wars</h1>
-                <p class="jumbotron-text">Alien and candy bombs!</p>  
+                <p class="jumbotron-text">Aliens and candy bombs!</p>  
                 <button type="button" class="start-button" href="#">Start</button>                
             </div>
 
@@ -55,9 +55,14 @@
                         <label for="player-menu01">Menu</label>
                     </div>
 
-                    <div class="player-life" id="player01-life-icon">
+                    <div class="player-counter-section" id="player01-life-icon">
                         <img src="./img/icon/hud_heartFull.png" alt="life for player one" />
-                        <span class="life-x">x</span><span class="life-point" id="player01-life">100</span>
+                        <span class="counter-x">x</span><span class="life-point" id="player01-life">100</span>
+                    </div>
+
+                    <div class="player-counter-section" id="player01-weapon-icon">
+                        <img src="img/weapon/bean_blue.png" alt="icon for weapon count" />
+                        <span class="counter-x">x</span><span class="weapon-point" id="player01-weapon-counter">0</span>
                     </div>
 
                     <div class="player-menu" id="action-menu02">
@@ -70,12 +75,17 @@
                         <label for="player-menu02">Menu</label>
                     </div>
 
-                    <div class="player-life" id="player02-life-icon">
-                        <img src="./img/icon/hud_heartFull.png" alt="life for player two" />
-                        <span class="life-x">x</span><span class="life-point" id="player02-life">100</span>
+                    <div class="counters">
+                        <div class="player-counter-section" id="player02-life-icon">
+                            <img src="./img/icon/hud_heartFull.png" alt="life for player two" />
+                            <span class="counter-x">x</span><span class="life-point" id="player02-life">100</span>
+                        </div>
+                        
+                        <div class="player-counter-section" id="player02-weapon-icon">
+                            <img src="img/weapon/bean_blue.png" alt="icon for weapon count" />
+                            <span class="counter-x">x</span><span class="weapon-point" id="player02-weapon-counter">0</span>
+                        </div>    
                     </div>
-                    
-
                 </div>
             </div>
         </section>        

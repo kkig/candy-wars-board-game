@@ -18,7 +18,7 @@ const maxRowIndex = numberOfRows - 1;
 const maxColumnIndex = numberOfColumns - 1;
 
 // Number of rocks
-const rockQuantity = Math.floor(totalNumberOfCells * .20);  // 20% of map
+const rockQuantity = Math.floor(totalNumberOfCells * .25);  // 20% of map
 
 // Number of each weapons
 const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
@@ -95,29 +95,22 @@ const selectIconCell = iconID => {
 };
 
 const selectPlayerTwo = () => {
-
     let isViolation = true;
 
     while(isViolation) {
         selectRandomCells();
 
-        //const leftColumn = map[row][column - 1];
-        //const rightColumn = map[row][column + 1];
-
-        //console.log(map[row - 1][column]);
-        //console.log('row: ' + row + ' Col: ' + column);
-        //console.log(map);
-
+        // Reset Values
         let isDuplicate = false;
-
-        // Check Duplicate
-        map[row][column] > 0 ? isDuplicate = true : isDuplicate = false;
-
 
         let isHeadTouching = false;
         let isRightTouching = false; 
         let isFootTouching = false;        
-        let isLeftTouching = false;       
+        let isLeftTouching = false;   
+
+
+        // Check Duplicate
+        map[row][column] > 0 ? isDuplicate = true : isDuplicate = false;
 
         // Check Above
         if(row < 1) {
@@ -127,8 +120,6 @@ const selectPlayerTwo = () => {
         } else {
             isHeadTouching = true;
         }   
-
-
 
         // Check Below
         if(row >= maxRowIndex) {
@@ -157,16 +148,11 @@ const selectPlayerTwo = () => {
             isRightTouching = true;
         }
 
-        /*
-
-        !isHeadTouching && !isRightTouching && !isFootTouching && !isLeftTouching ? isViolation = false : isViolation = true;        
-        isDuplicate || isFootTouching || isLeftTouching ? isViolation = true : isViolation = false;
-        */
         isDuplicate || isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isViolation = true : isViolation = false;
     }
-    //console.log(map);
+
+    // Update map
     updateMap(2);
-    
 
 };
 
@@ -194,11 +180,12 @@ const generateCells = () => {
     // Devide all cells per row
     createMapOverview();
 
-    // Place rocks
-    selectRockCells();
     
     // Select Weapon cells
     selectWeaponCells();
+
+    // Place rocks
+    selectRockCells();    
 
     // Select Player One cell
     selectIconCell(1);
@@ -241,11 +228,6 @@ const generateCells = () => {
                     cell.classList.add(`col-${columnDivide}`,'box');
                 break;
        }
-        /*
-       if(eachCell = 1) {
-           console.log('hello');
-       }
-       */
     
         $('.board').append(cell);
     }
@@ -268,16 +250,7 @@ $('.start-button').on('click', function(e) {
         generateCells();
     }
 
-
     // test to change life
     $('#player02-life').text('90');
 
-    /*
-    // Reset Cells
-    for(let cell of cells) {
-        cell.innerHTML = '';
-    }
-
-    displayIcons();
-    */
 });
