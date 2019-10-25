@@ -8,6 +8,9 @@ const weaponTwoImage = 'img/weapon/bean_green.png';
 const weaponThreeImage = 'img/weapon/jelly_yellow.png';
 const weaponFourImage = 'img/weapon/wrappedtrans_red.png';
 
+/* Obstacle Image */
+const obstacleOneImage = 'img/map/rock.png';
+
 /* Setting */
 const numberOfColumns = 6;
 const numberOfRows = 5;
@@ -18,7 +21,7 @@ const maxRowIndex = numberOfRows - 1;
 const maxColumnIndex = numberOfColumns - 1;
 
 // Number of rocks
-const rockQuantity = Math.floor(totalNumberOfCells * .25);  // 20% of map
+const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // 20% of map
 
 // Number of each weapons
 const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
@@ -26,21 +29,22 @@ const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cel
 
 /* Icons */
 class MapIcon {
-    constructor(id, name) {
+    constructor(id, name, image) {
         this.id = id;
         this.name = name;
+        this.image = image;
     }
 }
 
-const playerOne = new MapIcon(1, 'Squeaky');
-const playerTwo = new MapIcon(2, 'Mr.Pickles');
+const playerOne = new MapIcon(1, 'Squeaky', playerOneImage);
+const playerTwo = new MapIcon(2, 'Mr.Pickles', playerTwoImage);
 
-const weaponOne = new MapIcon(3, 'Blue Beans Bomb');
-const weaponTwo = new MapIcon(4, 'Green Beans Bomb');
-const weaponThree = new MapIcon(5, 'Yellow Jelly Bomb');
-const weaponFour = new MapIcon(6, 'Red Candy Bomb');
+const weaponOne = new MapIcon(3, 'Blue Beans Bomb', weaponOneImage);
+const weaponTwo = new MapIcon(4, 'Green Beans Bomb', weaponTwoImage);
+const weaponThree = new MapIcon(5, 'Yellow Jelly Bomb', weaponThreeImage);
+const weaponFour = new MapIcon(6, 'Red Candy Bomb', weaponFourImage);
 
-const rock = new MapIcon(7, 'Dummy Rock');
+const obstacle = new MapIcon(7, 'Dummy Rock', obstacleOneImage);
 
 
 /* Map out the board */
@@ -78,12 +82,18 @@ const selectRandomCells = () => {
 };
 
 
-const updateMap = iconId => {
-    map[row][column] = iconId;
+const updateMap = icon => {
+    map[row][column] = icon.id;
+
+    // Add placement info to player class
+    if(icon.id < 3) {
+        icon.row = row;
+        icon.column = column;
+    }
 };
 
 
-const selectIconCell = iconID => {
+const selectIconCell = icon => {
     selectRandomCells();
 
     // Avoid duplicate
@@ -91,7 +101,7 @@ const selectIconCell = iconID => {
         selectRandomCells();
     }
 
-    updateMap(iconID);
+    updateMap(icon);
 };
 
 const selectPlayerTwo = () => {
@@ -152,13 +162,13 @@ const selectPlayerTwo = () => {
     }
 
     // Update map
-    updateMap(2);
+    updateMap(playerTwo);
 
 };
 
-const selectRockCells = () => {
-    for(let i = 0; i < rockQuantity; i++) {
-        selectIconCell(7);
+const selectObstacleCells = () => {
+    for(let i = 0; i < obstacleQuantity; i++) {
+        selectIconCell(obstacle);
     }
 };
 
@@ -166,10 +176,10 @@ const selectRockCells = () => {
 const selectWeaponCells = () => {
     // Generate weapons
     for(let i = 0; i < weaponQuantity; i++) {
-        selectIconCell(3);
-        selectIconCell(4);
-        selectIconCell(5);
-        selectIconCell(6);
+        selectIconCell(weaponOne);
+        selectIconCell(weaponTwo);
+        selectIconCell(weaponThree);
+        selectIconCell(weaponFour);
     }
    
 };
@@ -180,15 +190,14 @@ const generateCells = () => {
     // Devide all cells per row
     createMapOverview();
 
+    // Place Obstacles
+    selectObstacleCells();    
     
     // Select Weapon cells
     selectWeaponCells();
 
-    // Place rocks
-    selectRockCells();    
-
     // Select Player One cell
-    selectIconCell(1);
+    selectIconCell(playerOne);
 
     // Select Player Two cell
     selectPlayerTwo();    
@@ -221,7 +230,7 @@ const generateCells = () => {
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-four');
                 break;
             case 7:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'rock');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'obstacle-one');
                 break;
 
             default:
