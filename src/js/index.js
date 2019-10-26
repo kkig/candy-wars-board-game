@@ -23,10 +23,11 @@ const maxColumnIndex = numberOfColumns - 1;
 
 const maxMovement = 3;
 
-const obstacleQuantity = Math.floor(totalNumberOfCells * .15);  // About 25% of map
+const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // About 25% of map
 const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
 
 let isPlayerOne = true;
+
 
 /* Icons */
 class MapIcon {
@@ -37,8 +38,12 @@ class MapIcon {
     }
 }
 
-// ID cand be change.
-// Please keep players and obstacles at the end of this list. 
+/*
+** ID cand be change.
+** Keep Unselectable cells after 'obstacleOne' to avoid error
+** Check 'Avairable Cell Color' section
+*/
+
 const weaponOne = new MapIcon(1, 'Blue Beans Bomb', weaponOneImage);
 const weaponTwo = new MapIcon(2, 'Green Beans Bomb', weaponTwoImage);
 const weaponThree = new MapIcon(3, 'Yellow Jelly Bomb', weaponThreeImage);
@@ -257,89 +262,84 @@ const generateCells = () => {
 };
 
 
-/* Movements */
+/* Change Avairable Cell Color */
 const colorAbove = player => {
-    const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
-    for(i = playerIndex; 0 <= i - numberOfColumns; i -= numberOfColumns) {
-        if (allCells[i - numberOfColumns] < obstacleOne.id) {
-            if(moveCount < maxMovement) {
-                boardDomArray[i - numberOfColumns].classList.add(player.colorClass);
-                moveCount ++;
-            }
-        } else {
+    for(i = player.row; i > 0; i -= 1) {
+        if(map[i - 1][player.column] >= obstacleOne.id) {
             return;
+        } else {
+            if(moveCount < maxMovement) {
+                domArray[i - 1][player.column].classList.add(player.colorClass);
+                moveCount++;
+            }
         }
     }
+
 };
 
 const colorBelow = player => {
-    const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
-    for(i = playerIndex; i + numberOfColumns < totalNumberOfCells; i += numberOfColumns) {
-        
-        if(allCells[i + numberOfColumns] < obstacleOne.id) {
+    for(i = player.row; i < maxRowIndex; i += 1) {
+        if(map[i + 1][player.column] >= obstacleOne.id) {
+            return;            
+        } else {
             if(moveCount < maxMovement) {
-                boardDomArray[i + numberOfColumns].classList.add(player.colorClass);
+                domArray[i + 1][player.column].classList.add(player.colorClass);
                 moveCount++;
             }
-        } else {
-            return;
         }
     }
 };
 
 const colorLeft = player => {
-    const playerIndex = $(player.targetClass).index();
+    //const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
     for(i = player.column; 0 < i; i--) {
-        if(map[player.row][i - 1] < obstacleOne.id) {
+        if(map[player.row][i - 1] >= obstacleOne.id) {
+            return;
+        } else {
             if(moveCount < maxMovement) {
-                boardDomArray[playerIndex - moveCount - 1].classList.add(player.colorClass);
+                domArray[player.row][i - 1].classList.add(player.colorClass);
                 moveCount++;
                 console.log(i - 1);
                 console.log('map: ' + map[player.row][i - 1]);    
             }
-        } else {
-            return;
         }
     }
 };
 
+const colorRight = player => {
+    let moveCount = 0;
+
+    for(i = player.column; i < maxColumnIndex; i++) {
+        if(map[player.row][i + 1] >= obstacleOne.id) {
+            return;
+        } else {
+            if(moveCount < maxMovement) {
+                domArray[player.row][i + 1].classList.add(player.colorClass);
+                moveCount++;
+            }
+        }
+    }
+};
 
 const changeCellColor = (player) => {
     // Change color of player cells
     $(player.targetClass).addClass(player.colorClass);
 
-    // Change color of movable cells
-    activateMovable(player);
-};
-
-const activateMovable = player => {
-
-
-    // Index of total cells
-    const playerIndex = $(player.targetClass).index();
-    //const colorClass = 'player-one-active';
-    //console.log(boardDomArray[playerIndex]);
-    //console.log(playerIndex);
-    //console.log(playerIndex - numberOfColumns);
-    console.log('playerIndex: ' + playerIndex);
-
     colorAbove(player);
     colorBelow(player);
+    colorRight(player);
     colorLeft(player);
-    
-    //console.log($('.box').children());
 };
 
 
 
 /* Event Listener */
-
 $('.start-button').on('click', function(e) {
     e.preventDefault();
     
@@ -351,16 +351,17 @@ $('.start-button').on('click', function(e) {
 
     // Create Map
     createMap();
-
     for(i = 0; i < totalNumberOfCells; i++) {
         generateCells();
     }
-
+    
+    // Create array of DOM elements
+    domArray = [];
     createDomArray();
 
     // Highlight Movable Cells
     if(isPlayerOne) {
-        changeCellColor(playerOne);
+        changeCellColor(playerTwo);
     }
 
     // test to change life
