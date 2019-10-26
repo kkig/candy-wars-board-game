@@ -1,4 +1,4 @@
-const domBox = document.getElementsByClassName('box');
+const boardDomArray = document.getElementsByClassName('box');
 
 /* Images */
 
@@ -52,8 +52,10 @@ const obstacleOne = new MapIcon(5, 'Dummy Rock', obstacleOneImage);
 const playerOne = new MapIcon(6, 'Squeaky', playerOneImage);
 const playerTwo = new MapIcon(7, 'Mr.Pickles', playerTwoImage);
 
+
 playerOne.colorClass = 'player-one-active';
 playerOne.targetClass = '.player-one';
+
 playerTwo.colorClass = 'player-two-active';
 playerTwo.targetClass = '.player-two';
 
@@ -251,15 +253,35 @@ const generateCells = () => {
 };
 
 /* Movements */
-const colorAbove = (playerIndex, player) => {
+const colorAbove = player => {
+    const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
     for(i = playerIndex; 0 <= i - numberOfColumns; i -= numberOfColumns) {
         if (allCells[i - numberOfColumns] < obstacleOne.id) {
             if(moveCount < maxMovement) {
-                domBox[i - numberOfColumns].classList.add(player.colorClass);
+                boardDomArray[i - numberOfColumns].classList.add(player.colorClass);
                 moveCount ++;
             }
+        } else {
+            return;
+        }
+    }
+};
+
+const colorBelow = player => {
+    const playerIndex = $(playerOne.targetClass).index();
+    let moveCount = 0;
+
+    for(i = playerIndex; i + numberOfColumns < totalNumberOfCells; i += numberOfColumns) {
+        
+        if(allCells[i + numberOfColumns] < obstacleOne.id) {
+
+            if(moveCount < maxMovement) {
+                boardDomArray[i + numberOfColumns].classList.add(player.colorClass);
+                moveCount++;
+            }
+            
         } else {
             return;
         }
@@ -281,12 +303,13 @@ const activateMovable = player => {
     // Index of total cells
     const playerIndex = $(player.targetClass).index();
     //const colorClass = 'player-one-active';
-    //console.log(domBox[playerIndex]);
+    //console.log(boardDomArray[playerIndex]);
     //console.log(playerIndex);
     //console.log(playerIndex - numberOfColumns);
     console.log('playerIndex: ' + playerIndex);
 
-    colorAbove(playerIndex, player);
+    colorAbove(player);
+    colorBelow(player);
     
 
 };
