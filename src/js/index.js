@@ -305,8 +305,6 @@ const colorLeft = player => {
             if(moveCount < maxMovement) {
                 domArray[player.row][i - 1].classList.add(player.colorClass);
                 moveCount++;
-                console.log(i - 1);
-                console.log('map: ' + map[player.row][i - 1]);    
             }
         }
     }
@@ -337,27 +335,30 @@ const changeCellColor = (player) => {
     colorLeft(player);
 };
 
+/* Reset board */
+const resetBoard = () => {
+  // Reset Board
+  $('.board').html('');
+  allCells = [];
+  map = [];
+
+  // Create Map
+  createMap();
+  for(i = 0; i < totalNumberOfCells; i++) {
+      generateCells();
+  }
+  
+  // Create array of DOM elements
+  domArray = [];
+  createDomArray();
+};
 
 
 /* Event Listener */
 $('.start-button').on('click', function(e) {
     e.preventDefault();
     
-
-    // Reset Board
-    $('.board').html('');
-    allCells = [];
-    map = [];
-
-    // Create Map
-    createMap();
-    for(i = 0; i < totalNumberOfCells; i++) {
-        generateCells();
-    }
-    
-    // Create array of DOM elements
-    domArray = [];
-    createDomArray();
+    resetBoard();
 
     // Highlight Movable Cells
     if(isPlayerOne) {
