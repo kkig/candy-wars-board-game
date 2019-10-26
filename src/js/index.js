@@ -1,3 +1,5 @@
+const domBox = document.getElementsByClassName('box');
+
 /* Images */
 
 const playerOneImage = 'img/player/player_gr.png';
@@ -22,10 +24,12 @@ const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 const maxRowIndex = numberOfRows - 1;
 const maxColumnIndex = numberOfColumns - 1;
 
-const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // About 25% of map
+const maxMovement = 3;
+
+const obstacleQuantity = Math.floor(totalNumberOfCells * .15);  // About 25% of map
 const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
 
-
+let isPlayerOne = true;
 
 /* Icons */
 class MapIcon {
@@ -36,16 +40,22 @@ class MapIcon {
     }
 }
 
-const playerOne = new MapIcon(1, 'Squeaky', playerOneImage);
-const playerTwo = new MapIcon(2, 'Mr.Pickles', playerTwoImage);
+// ID cand be change.
+// Please keep players and obstacles at the end of this list. 
+const weaponOne = new MapIcon(1, 'Blue Beans Bomb', weaponOneImage);
+const weaponTwo = new MapIcon(2, 'Green Beans Bomb', weaponTwoImage);
+const weaponThree = new MapIcon(3, 'Yellow Jelly Bomb', weaponThreeImage);
+const weaponFour = new MapIcon(4, 'Red Candy Bomb', weaponFourImage);
 
-const weaponOne = new MapIcon(3, 'Blue Beans Bomb', weaponOneImage);
-const weaponTwo = new MapIcon(4, 'Green Beans Bomb', weaponTwoImage);
-const weaponThree = new MapIcon(5, 'Yellow Jelly Bomb', weaponThreeImage);
-const weaponFour = new MapIcon(6, 'Red Candy Bomb', weaponFourImage);
+const obstacleOne = new MapIcon(5, 'Dummy Rock', obstacleOneImage);
 
-const obstacleOne = new MapIcon(7, 'Dummy Rock', obstacleOneImage);
+const playerOne = new MapIcon(6, 'Squeaky', playerOneImage);
+const playerTwo = new MapIcon(7, 'Mr.Pickles', playerTwoImage);
 
+playerOne.colorClass = 'player-one-active';
+playerOne.targetClass = '.player-one';
+playerTwo.colorClass = 'player-two-active';
+playerTwo.targetClass = '.player-two';
 
 
 /* Map out the board */
@@ -70,8 +80,6 @@ const createMapOverview = () => {
     }
 };
 
-
-
 /* select cells to generate icons */
 let row;
 let column;
@@ -86,7 +94,7 @@ const updateMap = icon => {
     map[row][column] = icon.id;
 
     // Store placement info to player class
-    if(icon.id < 3) {
+    if(icon.id >= playerOne.id) {
         icon.row = row;
         icon.column = column;
     }
@@ -125,7 +133,7 @@ const selectPlayerTwo = () => {
         // Check Above
         if(row < 1) {
             isHeadTouching = false;
-        } else if (row > 0 && map[row - 1][column] != 1) {
+        } else if (row > 0 && map[row - 1][column] != playerOne.id) {
             isHeadTouching = false;
         } else {
             isHeadTouching = true;
@@ -134,7 +142,7 @@ const selectPlayerTwo = () => {
         // Check Below
         if(row >= maxRowIndex) {
             isFootTouching = false;
-        } else if(row < maxRowIndex && map[row + 1][column] != 1) {
+        } else if(row < maxRowIndex && map[row + 1][column] != playerOne.id) {
             isFootTouching = false;
         } else {
             isFootTouching = true;
@@ -143,7 +151,7 @@ const selectPlayerTwo = () => {
         // Check Left
         if(column < 1) {
             isLeftTouching = false;
-        } else if(column > 0 && map[row][column - 1] != 1) {
+        } else if(column > 0 && map[row][column - 1] != playerOne.id) {
             isLeftTouching = false;
         } else {
             isLeftTouching = true;
@@ -152,7 +160,7 @@ const selectPlayerTwo = () => {
         // Check Right
         if(column >= maxColumnIndex) {
             isRightTouching = false;
-        } else if(column < maxColumnIndex && map[row][column + 1] != 1) {
+        } else if(column < maxColumnIndex && map[row][column + 1] != playerOne.id) {
             isRightTouching = false;
         } else {
             isRightTouching = true;
@@ -210,25 +218,25 @@ const generateCells = () => {
         const cell = document.createElement('div');
         
        switch (eachCell) {
-           case 1:
+           case playerOne.id:
                 cell.classList.add(`col-${columnDivide}`,'box', 'map-icon','player-one');
                 break;
-            case 2:
+            case playerTwo.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'player-two');
                 break;
-            case 3:
+            case weaponOne.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-one');
                 break;
-            case 4:
+            case weaponTwo.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-two');
                 break;
-            case 5:
+            case weaponThree.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-three');
                 break;
-            case 6:
+            case weaponFour.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-four');
                 break;
-            case 7:
+            case obstacleOne.id:
                 cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'obstacle-one');
                 break;
 
@@ -243,22 +251,69 @@ const generateCells = () => {
 };
 
 /* Movements */
+const colorAbove = (playerIndex, player) => {
+    let moveCount = 0;
+
+    for(i = playerIndex; 0 <= i - numberOfColumns; i -= numberOfColumns) {
+        if (allCells[i - numberOfColumns] < obstacleOne.id) {
+            if(moveCount < maxMovement) {
+                domBox[i - numberOfColumns].classList.add(player.colorClass);
+                moveCount ++;
+            }
+        } else {
+            return;
+        }
+    }
+};
+
+
+const changeCellColor = (player) => {
+    // Change color of player cells
+    $(player.targetClass).addClass(player.colorClass);
+
+    // Change color of movable cells
+    activateMovable(player);
+};
+
+const activateMovable = player => {
+
+
+    // Index of total cells
+    const playerIndex = $(player.targetClass).index();
+    //const colorClass = 'player-one-active';
+    //console.log(domBox[playerIndex]);
+    //console.log(playerIndex);
+    //console.log(playerIndex - numberOfColumns);
+    console.log('playerIndex: ' + playerIndex);
+
+    colorAbove(playerIndex, player);
+    
+
+};
 
 
 
 /* Event Listener */
+
 $('.start-button').on('click', function(e) {
     e.preventDefault();
     
 
-    // reset board
+    // Reset Board
     $('.board').html('');
     allCells = [];
     map = [];
+
+    // Create Map
     createMap();
 
     for(i = 0; i < totalNumberOfCells; i++) {
         generateCells();
+    }
+
+    // Highlight Movable Cells
+    if(isPlayerOne) {
+        changeCellColor(playerOne);
     }
 
     // test to change life
