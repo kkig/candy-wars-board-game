@@ -1,7 +1,6 @@
 const boardDomArray = document.getElementsByClassName('box');
 
 /* Images */
-
 const playerOneImage = 'img/player/player_gr.png';
 const playerTwoImage = 'img/player/player_yr.png';
 
@@ -13,9 +12,7 @@ const weaponFourImage = 'img/weapon/wrappedtrans_red.png';
 const obstacleOneImage = 'img/map/rock.png';
 
 
-
 /* Setting */
-
 const numberOfColumns = 6;
 const numberOfRows = 5;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
@@ -61,12 +58,9 @@ playerTwo.targetClass = '.player-two';
 
 
 /* Map out the board */
-
-// Map of all cell
 let allCells = [];
 let map = [];
-
-// merge: allCells = [].concat(...map);
+let domArray = [];
 
 const createMap = () => {
     // create array of all cells
@@ -79,6 +73,16 @@ const createMapOverview = () => {
     // Split into array per row
     for(i = 0; i + numberOfColumns <= totalNumberOfCells; i += numberOfColumns) {
         map.push(allCells.slice(i, i + numberOfColumns));
+    }
+
+};
+
+const createDomArray = () => {
+    let rowDom = [...document.querySelectorAll('.box')];
+
+    // Split per row
+    for(i = 0; i + numberOfColumns <= totalNumberOfCells; i += numberOfColumns) {
+        domArray.push(rowDom.slice(i, i + numberOfColumns));
     }
 };
 
@@ -198,7 +202,7 @@ const selectWeaponCells = () => {
 const generateCells = () => {
     // Devide all cells per row
     createMapOverview();
-
+    
     // Place Obstacles
     selectObstacleCells();    
     
@@ -252,6 +256,7 @@ const generateCells = () => {
     
 };
 
+
 /* Movements */
 const colorAbove = player => {
     const playerIndex = $(player.targetClass).index();
@@ -270,18 +275,34 @@ const colorAbove = player => {
 };
 
 const colorBelow = player => {
-    const playerIndex = $(playerOne.targetClass).index();
+    const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
     for(i = playerIndex; i + numberOfColumns < totalNumberOfCells; i += numberOfColumns) {
         
         if(allCells[i + numberOfColumns] < obstacleOne.id) {
-
             if(moveCount < maxMovement) {
                 boardDomArray[i + numberOfColumns].classList.add(player.colorClass);
                 moveCount++;
             }
-            
+        } else {
+            return;
+        }
+    }
+};
+
+const colorLeft = player => {
+    const playerIndex = $(player.targetClass).index();
+    let moveCount = 0;
+
+    for(i = player.column; 0 < i; i--) {
+        if(map[player.row][i - 1] < obstacleOne.id) {
+            if(moveCount < maxMovement) {
+                boardDomArray[playerIndex - moveCount - 1].classList.add(player.colorClass);
+                moveCount++;
+                console.log(i - 1);
+                console.log('map: ' + map[player.row][i - 1]);    
+            }
         } else {
             return;
         }
@@ -310,8 +331,9 @@ const activateMovable = player => {
 
     colorAbove(player);
     colorBelow(player);
+    colorLeft(player);
     
-
+    //console.log($('.box').children());
 };
 
 
@@ -333,6 +355,8 @@ $('.start-button').on('click', function(e) {
     for(i = 0; i < totalNumberOfCells; i++) {
         generateCells();
     }
+
+    createDomArray();
 
     // Highlight Movable Cells
     if(isPlayerOne) {
