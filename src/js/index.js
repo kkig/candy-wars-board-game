@@ -406,7 +406,6 @@ const addMovement = player => {
 const playerTurn = player => {
     changeCellColor(player);
     addMovement(player);
-    
 };
 
 const toggleTurn = () => {
@@ -417,23 +416,12 @@ const toggleTurn = () => {
         playerTurn(playerTwo);
         isPlayerOne = true;
     }
-    /*
-    else {
-        isPlayerOne = true;
-        return playerTurn(playerOne);
-    }
-    */
 };
 
 const evaluateLife = () => {
     const playerOneLife = $('#player01-life').text();
     const playerTwoLife = $('#player02-life').text();
 
-    let count = 0;
-    while(count != 5) {
-        toggleTurn();
-        count++;
-    }
 };
 
 /* Reset board */
@@ -452,7 +440,7 @@ const resetBoard = () => {
     // Create array of DOM elements
     domArray = [];
     createDomArray();
-  };
+};
   
 
 /* Event Listener */
