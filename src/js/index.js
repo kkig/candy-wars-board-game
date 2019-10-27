@@ -24,7 +24,7 @@ const maxMovement = 3;
 const obstacleQuantity = Math.floor(totalNumberOfCells * .35);  // About 35% of map
 const weaponQuantity = 1; 
 
-let isPlayerOne = false;
+let isPlayerOne = true;
 
 
 /* Icons */
@@ -341,18 +341,25 @@ const changeCellColor = (player) => {
 
 /* Movement */
 const addMovement = player => {
-    $('.' + player.colorClass).on('click', function addMovement(e) {
+    //$('.' + player.colorClass).on('click', function(e) {
+    //console.log('hello');
+    
+    $('.' + player.colorClass).on('click', function(e) {
         e.preventDefault();
 
-        //console.log(e.target.classList);
-        //console.log($(e.target).index());
+        // Stop Running when color of cell disappeared
+        if($('.' + player.colorClass).length <= 0) {
+            return;
+        } 
+
+        //console.log($('.' + player.colorClass).length = 0);
 
         const clickedCellIndex = $(e.target).index();
+        row = Math.floor(clickedCellIndex / numberOfColumns);
+        column = Math.floor(clickedCellIndex % numberOfColumns);
 
-        const clickedRow = Math.floor(clickedCellIndex / numberOfColumns);
-        const clickedColumn = Math.floor(clickedCellIndex % numberOfColumns);
-
-        if(map[clickedRow][clickedColumn] != 0) {
+        /* Evaluate Movable Cell */
+        if(map[row][column] != 0) {
 
             // Cell player is moving out
             map[player.row][player.column] = player.weapon.id;
@@ -360,9 +367,8 @@ const addMovement = player => {
             $('.' + player.colorClass).removeClass(player.targetClass);
             domArray[player.row][player.column].classList.add(player.weapon.targetClass);
 
-
             // Cell player is entering
-            switch (map[clickedRow][clickedColumn]) {
+            switch (map[row][column]) {
                 case weaponOne.id:
                     player.weapon = weaponOne;
                     break;
@@ -380,33 +386,69 @@ const addMovement = player => {
                     break;
             }
 
-            map[clickedRow][clickedColumn] = player.id;
-            e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
+            // Update Map info
+            updateMap(player);
 
+            e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
             e.target.classList.add(player.targetClass);
 
         } else {
 
             // Update Map
+            console.log(map[player.row][player.column]);
+            console.log('player.row: ' + player.row);
+            console.log('player.column: ' + player.column);
+
             map[player.row][player.column] = 0;
-            map[clickedRow][clickedColumn] = player.id;
+            updateMap(player);
+
+            console.log(map[player.row][player.column]);
+            console.log('player.row: ' + player.row);
+            console.log('player.column: ' + player.column);
 
             // Add Movement
             $('.' + player.colorClass).removeClass(player.targetClass);
-            e.target.classList.add(player.targetClass);    
-
+            e.target.classList.add(player.targetClass);
+            
         }
 
-        player.row = clickedRow;
-        player.column = clickedColumn;
-
-        $('.' + player.colorClass).removeClass(player.colorClass);
-        isPlayerOne = false;
-
+        $('.' + player.colorClass).removeClass(player.colorClass);        
+        toggleTurn();
     })
+
 };
 
+const playerTurn = player => {
+    changeCellColor(player);
+    addMovement(player);
+};
 
+const toggleTurn = () => {
+    if(isPlayerOne) {
+        playerTurn(playerOne);
+        isPlayerOne = false;
+    } else {
+        playerTurn(playerTwo);
+        isPlayerOne = true;
+    }
+    /*
+    else {
+        isPlayerOne = true;
+        return playerTurn(playerOne);
+    }
+    */
+};
+
+const evaluateLife = () => {
+    const playerOneLife = $('#player01-life').text();
+    const playerTwoLife = $('#player02-life').text();
+
+    let count = 0;
+    while(count != 5) {
+        toggleTurn();
+        count++;
+    }
+};
 
 /* Reset board */
 const resetBoard = () => {
@@ -434,13 +476,8 @@ $('.start-button').on('click', function(e) {
     resetBoard();
 
     // Highlight Movable Cells
-    if(isPlayerOne) {
-        changeCellColor(playerOne);
-        addMovement(playerOne);
-    } else {
-        changeCellColor(playerTwo);
-        addMovement(playerTwo);
-    }
+    toggleTurn();
+
 
     // test to change life
     $('#player02-life').text('90');
