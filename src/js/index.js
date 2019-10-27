@@ -1,5 +1,3 @@
-const boardDomArray = document.getElementsByClassName('box');
-
 /* Images */
 const playerOneImage = 'img/player/player_gr.png';
 const playerTwoImage = 'img/player/player_yr.png';
@@ -23,17 +21,18 @@ const maxColumnIndex = numberOfColumns - 1;
 
 const maxMovement = 3;
 
-const obstacleQuantity = Math.floor(totalNumberOfCells * .25);  // About 25% of map
-const weaponQuantity = Math.floor(totalNumberOfCells * .10); // About 10% of cell will be candy
+const obstacleQuantity = Math.floor(totalNumberOfCells * .35);  // About 35% of map
+const weaponQuantity = 1; 
 
-let isPlayerOne = true;
+let isPlayerOne = false;
 
 
 /* Icons */
 class MapIcon {
-    constructor(id, name, image) {
+    constructor(id, name, targetClass, image) {
         this.id = id;
         this.name = name;
+        this.targetClass = targetClass;
         this.image = image;
     }
 }
@@ -41,25 +40,31 @@ class MapIcon {
 /*
 ** ID cand be change.
 ** Keep Unselectable cells after 'obstacleOne' to avoid error
-** Check 'Avairable Cell Color' section
+** Check 'Available Cell Color' section
 */
 
-const weaponOne = new MapIcon(1, 'Blue Beans Bomb', weaponOneImage);
-const weaponTwo = new MapIcon(2, 'Green Beans Bomb', weaponTwoImage);
-const weaponThree = new MapIcon(3, 'Yellow Jelly Bomb', weaponThreeImage);
-const weaponFour = new MapIcon(4, 'Red Candy Bomb', weaponFourImage);
+const weaponOne = new MapIcon(1, 'Blue Beans Bomb', 'weapon-one', weaponOneImage);
+const weaponTwo = new MapIcon(2, 'Green Beans Bomb', 'weapon-two', weaponTwoImage);
+const weaponThree = new MapIcon(3, 'Yellow Jelly Bomb', 'weapon-three', weaponThreeImage);
+const weaponFour = new MapIcon(4, 'Red Candy Bomb', 'weapon-four', weaponFourImage);
 
-const obstacleOne = new MapIcon(5, 'Dummy Rock', obstacleOneImage);
+const obstacleOne = new MapIcon(5, 'Dummy Rock', 'obstacle-one', obstacleOneImage);
 
-const playerOne = new MapIcon(6, 'Squeaky', playerOneImage);
-const playerTwo = new MapIcon(7, 'Mr.Pickles', playerTwoImage);
+const playerOne = new MapIcon(6, 'Squeaky', 'player-one', playerOneImage);
+const playerTwo = new MapIcon(7, 'Mr.Pickles', 'player-two', playerTwoImage);
 
-
+// Add associated class to players
 playerOne.colorClass = 'player-one-active';
-playerOne.targetClass = '.player-one';
+playerOne.weapon = weaponOne;
 
 playerTwo.colorClass = 'player-two-active';
-playerTwo.targetClass = '.player-two';
+playerTwo.weapon = weaponOne;
+
+// Damage range to weapons
+weaponOne.attacPoint = 10;
+weaponTwo.attacPoint = 20;
+weaponThree.attacPoint = 30;
+weaponFour.attacPoint = 40;
 
 
 /* Map out the board */
@@ -182,7 +187,6 @@ const selectPlayerTwo = () => {
     }
 
     updateMap(playerTwo);
-
 };
 
 const selectObstacleCells = () => {
@@ -230,29 +234,29 @@ const generateCells = () => {
         
        switch (eachCell) {
            case playerOne.id:
-                cell.classList.add(`col-${columnDivide}`,'box', 'map-icon','player-one');
+                cell.classList.add(`col-${columnDivide}`,'box', 'map-icon', playerOne.targetClass);
                 break;
             case playerTwo.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'player-two');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', playerTwo.targetClass);
                 break;
             case weaponOne.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-one');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', weaponOne.targetClass);
                 break;
             case weaponTwo.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-two');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', weaponTwo.targetClass);
                 break;
             case weaponThree.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-three');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', weaponThree.targetClass);
                 break;
             case weaponFour.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'weapon-four');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', weaponFour.targetClass);
                 break;
             case obstacleOne.id:
-                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', 'obstacle-one');
+                cell.classList.add(`col-${columnDivide}`, 'box', 'map-icon', obstacleOne.targetClass);
                 break;
 
             default:
-                    cell.classList.add(`col-${columnDivide}`,'box');
+                    cell.classList.add(`col-${columnDivide}`,'box', 'map-icon');
                 break;
        }
     
@@ -262,7 +266,7 @@ const generateCells = () => {
 };
 
 
-/* Change Avairable Cell Color */
+/* Change Available Cell Color */
 const colorAbove = player => {
     let moveCount = 0;
 
@@ -326,8 +330,8 @@ const colorRight = player => {
 };
 
 const changeCellColor = (player) => {
-    // Change color of player cells
-    $(player.targetClass).addClass(player.colorClass);
+    // Change color of player cell
+    domArray[player.row][player.column].classList.add(player.colorClass);
 
     colorAbove(player);
     colorBelow(player);
@@ -335,24 +339,93 @@ const changeCellColor = (player) => {
     colorLeft(player);
 };
 
-/* Reset board */
-const resetBoard = () => {
-  // Reset Board
-  $('.board').html('');
-  allCells = [];
-  map = [];
+/* Movement */
+const addMovement = player => {
+    $('.' + player.colorClass).on('click', function addMovement(e) {
+        e.preventDefault();
 
-  // Create Map
-  createMap();
-  for(i = 0; i < totalNumberOfCells; i++) {
-      generateCells();
-  }
-  
-  // Create array of DOM elements
-  domArray = [];
-  createDomArray();
+        //console.log(e.target.classList);
+        //console.log($(e.target).index());
+
+        const clickedCellIndex = $(e.target).index();
+
+        const clickedRow = Math.floor(clickedCellIndex / numberOfColumns);
+        const clickedColumn = Math.floor(clickedCellIndex % numberOfColumns);
+
+        if(map[clickedRow][clickedColumn] != 0) {
+
+            // Cell player is moving out
+            map[player.row][player.column] = player.weapon.id;
+
+            $('.' + player.colorClass).removeClass(player.targetClass);
+            domArray[player.row][player.column].classList.add(player.weapon.targetClass);
+
+
+            // Cell player is entering
+            switch (map[clickedRow][clickedColumn]) {
+                case weaponOne.id:
+                    player.weapon = weaponOne;
+                    break;
+
+                case weaponTwo.id:
+                    player.weapon = weaponTwo;
+                    break;
+
+                case weaponThree.id:
+                    player.weapon = weaponThree;
+                    break;
+
+                case weaponFour.id:
+                    player.weapon = weaponFour;
+                    break;
+            }
+
+            map[clickedRow][clickedColumn] = player.id;
+            e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
+
+            e.target.classList.add(player.targetClass);
+
+        } else {
+
+            // Update Map
+            map[player.row][player.column] = 0;
+            map[clickedRow][clickedColumn] = player.id;
+
+            // Add Movement
+            $('.' + player.colorClass).removeClass(player.targetClass);
+            e.target.classList.add(player.targetClass);    
+
+        }
+
+        player.row = clickedRow;
+        player.column = clickedColumn;
+
+        $('.' + player.colorClass).removeClass(player.colorClass);
+        isPlayerOne = false;
+
+    })
 };
 
+
+
+/* Reset board */
+const resetBoard = () => {
+    // Reset Board
+    $('.board').html('');
+    allCells = [];
+    map = [];
+  
+    // Create Map
+    createMap();
+    for(i = 0; i < totalNumberOfCells; i++) {
+        generateCells();
+    }
+    
+    // Create array of DOM elements
+    domArray = [];
+    createDomArray();
+  };
+  
 
 /* Event Listener */
 $('.start-button').on('click', function(e) {
@@ -362,7 +435,11 @@ $('.start-button').on('click', function(e) {
 
     // Highlight Movable Cells
     if(isPlayerOne) {
+        changeCellColor(playerOne);
+        addMovement(playerOne);
+    } else {
         changeCellColor(playerTwo);
+        addMovement(playerTwo);
     }
 
     // test to change life
