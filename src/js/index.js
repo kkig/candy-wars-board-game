@@ -343,12 +343,13 @@ const changeCellColor = (player) => {
 const addMovement = player => {
     //$('.' + player.colorClass).on('click', function(e) {
     //console.log('hello');
-    
-    $('.' + player.colorClass).on('click', function(e) {
+
+    $('.' + player.colorClass).click(function(e) {
         e.preventDefault();
 
         // Stop Running when color of cell disappeared
         if($('.' + player.colorClass).length <= 0) {
+            console.log('stop!');
             return;
         } 
 
@@ -360,6 +361,7 @@ const addMovement = player => {
 
         /* Evaluate Movable Cell */
         if(map[row][column] != 0) {
+            console.log('map: ' + map[row][column]);
 
             // Cell player is moving out
             map[player.row][player.column] = player.weapon.id;
@@ -388,7 +390,7 @@ const addMovement = player => {
 
             // Update Map info
             updateMap(player);
-
+            console.log(map);
             e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
             e.target.classList.add(player.targetClass);
 
@@ -476,6 +478,7 @@ $('.start-button').on('click', function(e) {
     resetBoard();
 
     // Highlight Movable Cells
+    isPlayerOne = true;
     toggleTurn();
 
 
