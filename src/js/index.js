@@ -339,12 +339,101 @@ const changeCellColor = (player) => {
     colorLeft(player);
 };
 
+
 /* Movement */
+/*
+const addMovement = player => {
+    const domCollection = document.getElementsByClassName(`${player.colorClass}`);
+
+    console.log(player);
+
+    for(let element of domCollection) {
+        element.onclick = function(e) {
+            e.preventDefault();
+    
+            //console.log($(e.target).index());
+
+            const clickedCellIndex = $(e.target).index();
+            row = Math.floor(clickedCellIndex / numberOfColumns);
+            column = Math.floor(clickedCellIndex % numberOfColumns);
+
+
+            if(map[row][column] != 0) {
+                console.log('map: ' + map[row][column]);
+    
+                // Cell player is moving out
+                map[player.row][player.column] = player.weapon.id;
+    
+                domArray[player.row][player.column].classList.remove(player.targetClass);
+                domArray[player.row][player.column].classList.add(player.weapon.targetClass);
+    
+                // Cell player is entering
+                switch (map[row][column]) {
+                    case weaponOne.id:
+                        player.weapon = weaponOne;
+                        break;
+    
+                    case weaponTwo.id:
+                        player.weapon = weaponTwo;
+                        break;
+    
+                    case weaponThree.id:
+                        player.weapon = weaponThree;
+                        break;
+    
+                    case weaponFour.id:
+                        player.weapon = weaponFour;
+                        break;
+                }
+    
+                // Update Map info
+                updateMap(player);
+                console.log(map);
+                e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
+                e.target.classList.add(player.targetClass);
+    
+            } else {
+    
+                // Update Map
+                map[player.row][player.column] = 0;
+                domArray[player.row][player.column].classList.remove(player.targetClass);
+
+                updateMap(player);
+    
+                // Add Movement
+                e.target.classList.add(player.targetClass);
+                
+            }
+            
+            
+            //return $('.' + player.colorClass).removeClass(player.colorClass);              
+        
+        }
+        
+    console.log(element);
+    //element.classList.remove(player.colorClass);
+        //element.classList.remove(player.colorClass);        
+        //toggleTurn();
+    //$('.' + player.colorClass).removeClass(player.colorClass);
+    //element.classList.remove(player.colorClass);
+    }
+//removeColor(domCollection, player);
+
+};
+
+const removeColor = (domArray, player) => {
+    for(let element of domArray) {
+        element.classList.remove(player.colorClass);
+    }
+};
+*/
+
+
 const addMovement = player => {
     //$('.' + player.colorClass).on('click', function(e) {
     //console.log('hello');
 
-    $('.' + player.colorClass).click(function(e) {
+    $('.' + player.colorClass).on('click', function(e) {
         e.preventDefault();
 
         // Stop Running when color of cell disappeared
@@ -359,7 +448,7 @@ const addMovement = player => {
         row = Math.floor(clickedCellIndex / numberOfColumns);
         column = Math.floor(clickedCellIndex % numberOfColumns);
 
-        /* Evaluate Movable Cell */
+        
         if(map[row][column] != 0) {
             console.log('map: ' + map[row][column]);
 
@@ -404,25 +493,23 @@ const addMovement = player => {
             map[player.row][player.column] = 0;
             updateMap(player);
 
-            console.log(map[player.row][player.column]);
-            console.log('player.row: ' + player.row);
-            console.log('player.column: ' + player.column);
-
             // Add Movement
             $('.' + player.colorClass).removeClass(player.targetClass);
             e.target.classList.add(player.targetClass);
             
         }
 
-        $('.' + player.colorClass).removeClass(player.colorClass);        
+        $('.' + player.colorClass).removeClass(player.colorClass).off();   
         toggleTurn();
     })
 
 };
 
+
 const playerTurn = player => {
     changeCellColor(player);
     addMovement(player);
+    
 };
 
 const toggleTurn = () => {
