@@ -24,6 +24,7 @@ const maxMovement = 3;
 const obstacleQuantity = Math.floor(totalNumberOfCells * .35);  // About 35% of map
 const weaponQuantity = 1; 
 
+// Control which player starts turn
 let isPlayerOne = true;
 
 
@@ -186,16 +187,11 @@ const selectPlayerTwo = () => {
     while(isViolation) {
         selectRandomCells();
 
-        // Reset Values
         let isDuplicate = false;
 
-        // Check Duplicate
         map[row][column] > 0 ? isDuplicate = true : isDuplicate = false;
 
-
         checkTouching(row, column);
-
-        // Chell all the violations
         isDuplicate || isTouching ? isViolation = true : isViolation = false;
     }
 
@@ -211,14 +207,12 @@ const selectObstacleCells = () => {
 
 
 const selectWeaponCells = () => {
-    // Generate weapons
     for(let i = 0; i < weaponQuantity; i++) {
         selectIconCell(weaponOne);
         selectIconCell(weaponTwo);
         selectIconCell(weaponThree);
         selectIconCell(weaponFour);
     }
-   
 };
 
 
@@ -227,16 +221,9 @@ const generateCells = () => {
     // Devide all cells per row
     createMapOverview();
     
-    // Place Obstacles
     selectObstacleCells();    
-    
-    // Select Weapon cells
     selectWeaponCells();
-
-    // Select Player One cell
     selectIconCell(playerOne);
-
-    // Select Player Two cell
     selectPlayerTwo();    
     
 
@@ -410,7 +397,7 @@ const addMovement = player => {
             
         }
 
-        evaluateBattle(player);
+    evaluateBattle(player);
 
     })
 
@@ -424,7 +411,6 @@ const disableAction = () => {
 }
 
 const enableAction = () => {
-    console.log(isPlayerOne);
 
     isPlayerOne ? 
     $('#player02-checkbox').prop('disabled', false).prop('checked', true) : 
@@ -433,6 +419,25 @@ const enableAction = () => {
 
 
 /* Check Encounter */
+const prepareAction = player => {
+    $('.command-icon').on('click', function(e) {
+        e.preventDefault();
+        
+
+        //const clickedClass = this.className;
+        console.log($(e.target).hasClass('attack'));
+
+    
+        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+        toggleTurn();
+
+        $('.command-icon').off();
+        disableAction();
+
+    })
+
+};
+
 const evaluateBattle = player => {
     checkTouching(playerTwo.row, playerTwo.column);
 
@@ -441,10 +446,10 @@ const evaluateBattle = player => {
         
         enableAction();
 
-        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
-        toggleTurn();
+        prepareAction(player);
+
     } else {
-        disableAction();
+
         $('.' + player.colorClass).removeClass(player.colorClass).off(); 
         toggleTurn();
     }
@@ -473,6 +478,12 @@ const evaluateLife = () => {
 
 };
 
+const resetLife = () => {
+    $('#player01-life').text('100');
+    $('#player02-life').text('100');
+};
+
+
 /* Reset */
 const resetBoard = () => {
     // Reset Board
@@ -495,6 +506,8 @@ const resetBoard = () => {
     toggleTurn();
 
     disableAction();
+
+    resetLife();
 };
   
 
@@ -503,8 +516,5 @@ $('.start-button').on('click', function(e) {
     e.preventDefault();
     
     resetBoard();
-
-    // test to change life
-    $('#player02-life').text('90');
 
 });
