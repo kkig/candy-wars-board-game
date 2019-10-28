@@ -128,6 +128,56 @@ const selectIconCell = icon => {
     updateMap(icon);
 };
 
+/* Chekc If charactors are touching */
+let isTouching = false;
+
+const checkTouching = (row, column) => {
+    isTouching = false;
+
+    let isHeadTouching = false;
+    let isRightTouching = false; 
+    let isFootTouching = false;        
+    let isLeftTouching = false;   
+
+    // Check Above
+    if(row < 1) {
+        isHeadTouching = false;
+    } else if (row > 0 && map[row - 1][column] != playerOne.id) {
+        isHeadTouching = false;
+    } else {
+        isHeadTouching = true;
+    }   
+
+    // Check Below
+    if(row >= maxRowIndex) {
+        isFootTouching = false;
+    } else if(row < maxRowIndex && map[row + 1][column] != playerOne.id) {
+        isFootTouching = false;
+    } else {
+        isFootTouching = true;
+    }
+
+    // Check Left
+    if(column < 1) {
+        isLeftTouching = false;
+    } else if(column > 0 && map[row][column - 1] != playerOne.id) {
+        isLeftTouching = false;
+    } else {
+        isLeftTouching = true;
+    }   
+
+    // Check Right
+    if(column >= maxColumnIndex) {
+        isRightTouching = false;
+    } else if(column < maxColumnIndex && map[row][column + 1] != playerOne.id) {
+        isRightTouching = false;
+    } else {
+        isRightTouching = true;
+    }
+
+    isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isTouching = true : isTouching = false;
+};
+
 const selectPlayerTwo = () => {
     let isViolation = true;
 
@@ -137,53 +187,14 @@ const selectPlayerTwo = () => {
         // Reset Values
         let isDuplicate = false;
 
-        let isHeadTouching = false;
-        let isRightTouching = false; 
-        let isFootTouching = false;        
-        let isLeftTouching = false;   
-
-
         // Check Duplicate
         map[row][column] > 0 ? isDuplicate = true : isDuplicate = false;
 
-        // Check Above
-        if(row < 1) {
-            isHeadTouching = false;
-        } else if (row > 0 && map[row - 1][column] != playerOne.id) {
-            isHeadTouching = false;
-        } else {
-            isHeadTouching = true;
-        }   
 
-        // Check Below
-        if(row >= maxRowIndex) {
-            isFootTouching = false;
-        } else if(row < maxRowIndex && map[row + 1][column] != playerOne.id) {
-            isFootTouching = false;
-        } else {
-            isFootTouching = true;
-        }
-
-        // Check Left
-        if(column < 1) {
-            isLeftTouching = false;
-        } else if(column > 0 && map[row][column - 1] != playerOne.id) {
-            isLeftTouching = false;
-        } else {
-            isLeftTouching = true;
-        }   
-
-        // Check Right
-        if(column >= maxColumnIndex) {
-            isRightTouching = false;
-        } else if(column < maxColumnIndex && map[row][column + 1] != playerOne.id) {
-            isRightTouching = false;
-        } else {
-            isRightTouching = true;
-        }
+        checkTouching(row, column);
 
         // Chell all the violations
-        isDuplicate || isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isViolation = true : isViolation = false;
+        isDuplicate || isTouching ? isViolation = true : isViolation = false;
     }
 
     updateMap(playerTwo);
@@ -352,7 +363,6 @@ const addMovement = player => {
 
         // Movements
         if(map[row][column] != 0) {
-            console.log('map: ' + map[row][column]);
 
             // Cell player is moving out
             map[player.row][player.column] = player.weapon.id;
@@ -396,13 +406,26 @@ const addMovement = player => {
             
         }
 
-        $('.' + player.colorClass).removeClass(player.colorClass).off();   
+        evaluateBattle();
+
+        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
         toggleTurn();
     })
 
 };
 
 
+/* Check Encounter */
+const evaluateBattle = () => {
+    checkTouching(playerTwo.row, playerTwo.column);
+    
+    if(isTouching) {
+        console.log('Touching!');
+    }
+};
+
+
+/* Control Turn */
 const playerTurn = player => {
     changeCellColor(player);
     addMovement(player);
