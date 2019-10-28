@@ -115,13 +115,13 @@ h1 {
 */
 #action-menu01 {
     position: fixed;
-    bottom: 2em;
+    bottom: 3.5em;
     left: 0;
 }
 
 #action-menu02 {
     position: fixed;
-    bottom: 2em;
+    bottom: 3.5em;
     right: 0;
 }
 
@@ -173,7 +173,7 @@ h1 {
     color: #ffffff;
     padding: 0 2em;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: auto;
     transition: .5s;
     font-size: .5rem;
     text-transform: uppercase;
@@ -226,11 +226,23 @@ h1 {
 
 #player01-life-icon {
     position: fixed;
-    bottom: 0;
+    bottom: 2em;
     left: 0;    
 }
 
+#player01-weapon-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
 #player02-life-icon {
+    position: fixed;
+    bottom: 2em;
+    right: 0;
+}
+
+#player02-weapon-section {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -241,6 +253,11 @@ h1 {
 .counter-x {
     padding: 0 .25em;
 }
+
+.atk-pt-count {
+    padding: 0 .25em;
+}
+
 
 
 /* Weapon Description */

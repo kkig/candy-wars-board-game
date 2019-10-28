@@ -52,7 +52,7 @@ const weaponFour = new MapIcon(4, 'Red Candy Bomb', 'weapon-four', weaponFourIma
 const obstacleOne = new MapIcon(5, 'Dummy Rock', 'obstacle-one', obstacleOneImage);
 
 const playerOne = new MapIcon(6, 'Squeaky', 'player-one', playerOneImage);
-const playerTwo = new MapIcon(7, 'Mr.Pickles', 'player-two', playerTwoImage);
+const playerTwo = new MapIcon(7, 'Mr. Pickles', 'player-two', playerTwoImage);
 
 // Add associated class to players
 playerOne.colorClass = 'player-one-active';
@@ -386,8 +386,11 @@ const addMovement = player => {
 
             // Update Map info
             updateMap(player);
+            
             e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
             e.target.classList.add(player.targetClass);
+
+            updateWeaponIcon(player);
 
         } else {
 
@@ -409,9 +412,24 @@ const addMovement = player => {
 
 };
 
+const updateWeaponIcon = player => {
+    if(player.id != playerTwo.id) {
+        $('#player01-weapon').attr('src', player.weapon.image);
+        $('#player01-atk-pt').text(player.weapon.attackPoint);
+    } else if(player.id != playerOne.id) {
+        $('#player02-weapon').attr('src', player.weapon.image);
+        $('#player02-atk-pt').text(player.weapon.attackPoint);
+    } else {
+        alert('Error has occured!');
+    }
+};
+
 const resetWeapon = () => {
     playerOne.weapon = weaponOne;
+    updateWeaponIcon(playerOne);
+
     playerTwo.weapon = weaponOne;
+    updateWeaponIcon(playerTwo);
 };
 
 
@@ -449,12 +467,9 @@ const attack = () => {
             playerTwo.life = 0;
         }
     }
-    isFighting = false;
 
     updateLifePoint();
-
-    console.log('playerOne: ' + playerOne.life);
-    console.log('playerTwo: ' + playerTwo.life);
+    isFighting = false;
 
 };
 
@@ -480,7 +495,6 @@ const prepareAction = player => {
         $('.command-icon').off();
         disableAction();
 
-        console.log('Touching!');
         //console.log(playerOne.life -= playerTwo.weapon.attackPoint);
 
         //playerOne.life -= playerTwo.weapon.attackPoint;
@@ -550,11 +564,10 @@ const updateLifePoint = () => {
 
 const evaluateLifePoint = () => {
     let winner;
-    console.log(playerOne.life <= 0 || playerTwo.life <= 0);
     if(playerOne.life <= 0 || playerTwo.life <= 0) {
-        playerOne.life < 0 ? winner = playerTwo : winner = playerOne;
+        playerOne.life <= 0 ? winner = playerTwo : winner = playerOne;
 
-        alert(`Winner is : ${winner.name}`);
+        alert(`The winner is ${winner.name}! Please reset the game.`);
         isGameOver = true;
         //$('.board').off();
         //alert(`Winner is : ${winner.name}`);

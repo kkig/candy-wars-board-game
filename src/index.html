@@ -25,7 +25,7 @@
         <section id="jumbotron">
             <div class="container text-center">
                 <h1>Candy Wars</h1>
-                <p class="jumbotron-text">Aliens and candy bombs!</p>  
+                <p class="jumbotron-text">Aliens and Candy Bombs!</p>  
                 <button type="button" class="start-button" href="#">Start</button>                
             </div>
 
@@ -55,9 +55,16 @@
                         <label for="player01-checkbox">Squeaky</label>
                     </div>
 
-                    <div class="player-counter-section" id="player01-life-icon">
-                        <img src="./img/icon/hud_heartFull.png" alt="life for player one" />
-                        <span class="counter-x">x</span><span class="life-point" id="player01-life">100</span>
+                    <div class="counters">
+                        <div class="player-counter-section" id="player01-weapon-section">
+                                <img id="player01-weapon" src="img/weapon/bean_blue.png" alt="weapon for player one" />
+                                <span class="atk-pt-count" id="player01-atk-pt">10</span><span class="atk-unit">pt</span>
+                        </div>
+
+                        <div class="player-counter-section" id="player01-life-icon">
+                            <img src="./img/icon/hud_heartFull.png" alt="life for player one" />
+                            <span class="counter-x">x</span><span class="life-point" id="player01-life">100</span>
+                        </div>
                     </div>
 
                     <div class="player-menu" id="action-menu02">
@@ -71,6 +78,11 @@
                     </div>
 
                     <div class="counters">
+                        <div class="player-counter-section" id="player02-weapon-section">
+                            <img id="player02-weapon" src="img/weapon/bean_blue.png" alt="weapon for player two" />
+                            <span class="atk-pt-count" id="player02-atk-pt">10</span><span class="atk-unit">pt</span>
+                        </div>
+
                         <div class="player-counter-section" id="player02-life-icon">
                             <img src="img/icon/hud_heartFull.png" alt="life for player two" />
                             <span class="counter-x">x</span><span class="life-point" id="player02-life">100</span>
@@ -83,14 +95,13 @@
         
         <section class="desc-rule text-center">
             <div class="desc-wrapper">
-                <p class="message"></p>
+                <p>Note: Aliens have small hands. They can only hold one bomb!</p>
                 <ul class="weapon-desc">
                     <li>Blue Jerry Bomb: 10 points</li>
                     <li>Green Jerry Bomb: 20 points</li>
                     <li>Yellow Jelly Bomb: 30 points</li>
                     <li>Red Candy Bomb: 40 points</li>
                 </ul>
-                <p>Note: Aliens have small hands. They can only hold one bomb!</p>
             </div>
         </section>
 
