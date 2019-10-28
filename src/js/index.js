@@ -57,15 +57,19 @@ const playerTwo = new MapIcon(7, 'Mr.Pickles', 'player-two', playerTwoImage);
 // Add associated class to players
 playerOne.colorClass = 'player-one-active';
 playerOne.weapon = weaponOne;
+playerOne.life = 100;
+playerOne.isDefending = false;
 
 playerTwo.colorClass = 'player-two-active';
 playerTwo.weapon = weaponOne;
+playerTwo.life = 100;
+playerTwo.isDefending = false;
 
 // Damage range to weapons
-weaponOne.attacPoint = 10;
-weaponTwo.attacPoint = 20;
-weaponThree.attacPoint = 30;
-weaponFour.attacPoint = 40;
+weaponOne.attackPoint = 10;
+weaponTwo.attackPoint = 20;
+weaponThree.attackPoint = 30;
+weaponFour.attackPoint = 40;
 
 
 /* Map out the board */
@@ -130,7 +134,7 @@ const selectIconCell = icon => {
 };
 
 
-/* Chekc If charactors are touching */
+/* Check if charactors are touching */
 let isTouching = false;
 
 const checkTouching = (row, column) => {
@@ -268,7 +272,7 @@ const generateCells = () => {
 };
 
 
-/* Change Available Cell Color */
+/* Change Color of Available Cell */
 const colorAbove = player => {
     let moveCount = 0;
 
@@ -397,10 +401,17 @@ const addMovement = player => {
             
         }
 
+    $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+   
     evaluateBattle(player);
 
     })
 
+};
+
+const resetWeapon = () => {
+    playerOne.weapon = weaponOne;
+    playerTwo.weapon = weaponOne;
 };
 
 
@@ -419,13 +430,48 @@ const enableAction = () => {
 
 
 /* Check Encounter */
+let isFighting = false;
+
+
+const attack = () => {
+    if(isPlayerOne) {
+        playerOne.isDefending ? playerOne.life -= (playerTwo.weapon.attackPoint / 2) : 
+        playerOne.life -= playerTwo.weapon.attackPoint;
+
+        if(playerOne.life < 0) {
+            playerOne.life = 0;
+        }
+    } else {
+        playerTwo.isDefending ? playerTwo.life -= (playerOne.weapon.attackPoint / 2) :
+        playerTwo.life -= playerOne.weapon.attackPoint;
+
+        if(playerTwo.life < 0) {
+            playerTwo.life = 0;
+        }
+    }
+    isFighting = false;
+
+    updateLifePoint();
+
+    console.log('playerOne: ' + playerOne.life);
+    console.log('playerTwo: ' + playerTwo.life);
+
+};
+
 const prepareAction = player => {
     $('.command-icon').on('click', function(e) {
         e.preventDefault();
         
 
         //const clickedClass = this.className;
-        console.log($(e.target).hasClass('attack'));
+        //console.log($(e.target).hasClass('attack'));
+        if($(e.target).hasClass('attack')) {
+            isFighting = true;
+        } else if($(e.target).hasClass('defend')) {
+            player.isDefending = true;
+        } else {
+            alert('Error has occured!');
+        }
 
     
         $('.' + player.colorClass).removeClass(player.colorClass).off(); 
@@ -433,6 +479,12 @@ const prepareAction = player => {
 
         $('.command-icon').off();
         disableAction();
+
+        console.log('Touching!');
+        //console.log(playerOne.life -= playerTwo.weapon.attackPoint);
+
+        //playerOne.life -= playerTwo.weapon.attackPoint;
+        //updateLifePoint(playerOne);
 
     })
 
@@ -442,15 +494,12 @@ const evaluateBattle = player => {
     checkTouching(playerTwo.row, playerTwo.column);
 
     if(isTouching) {
-        console.log('Touching!');
-        
-        enableAction();
 
+        enableAction();
         prepareAction(player);
 
     } else {
-
-        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+ 
         toggleTurn();
     }
 };
@@ -458,11 +507,23 @@ const evaluateBattle = player => {
 
 /* Control Turn */
 const playerTurn = player => {
-    changeCellColor(player);
-    addMovement(player);
+    if(isFighting) {
+        attack();
+    }
+    evaluateLifePoint();
+
+    if(isGameOver) {
+        return;
+    } else {
+        player.isDefending = false;
+        changeCellColor(player);
+        addMovement(player);
+    }
+
 };
 
 const toggleTurn = () => {
+    
     if(isPlayerOne) {
         playerTurn(playerOne);
         isPlayerOne = false;
@@ -472,20 +533,42 @@ const toggleTurn = () => {
     }
 };
 
-const evaluateLife = () => {
-    const playerOneLife = $('#player01-life').text();
-    const playerTwoLife = $('#player02-life').text();
-
-};
+/* Life Poitns */
+let isGameOver = false;
 
 const resetLife = () => {
-    $('#player01-life').text('100');
-    $('#player02-life').text('100');
+    playerOne.life = 100;
+    playerTwo.life = 100;
+
+    $('#player01-life').text(playerOne.life);
+    $('#player02-life').text(playerTwo.life);
 };
 
+const updateLifePoint = () => {
+    isPlayerOne ? $('#player01-life').text(playerOne.life) : $('#player02-life').text(playerTwo.life);
+};
+
+const evaluateLifePoint = () => {
+    let winner;
+    console.log(playerOne.life <= 0 || playerTwo.life <= 0);
+    if(playerOne.life <= 0 || playerTwo.life <= 0) {
+        playerOne.life < 0 ? winner = playerTwo : winner = playerOne;
+
+        alert(`Winner is : ${winner.name}`);
+        isGameOver = true;
+        //$('.board').off();
+        //alert(`Winner is : ${winner.name}`);
+        //return $('.message').text(`Winner is : ${winner.name}`);
+    }
+};
 
 /* Reset */
 const resetBoard = () => {
+
+    disableAction();
+    resetWeapon();
+    resetLife();
+
     // Reset Board
     $('.board').html('');
     allCells = [];
@@ -504,16 +587,14 @@ const resetBoard = () => {
     // Highlight Movable Cells
     isPlayerOne = true;
     toggleTurn();
-
-    disableAction();
-
-    resetLife();
 };
   
 
 /* Event Listener */
 $('.start-button').on('click', function(e) {
     e.preventDefault();
+
+    isGameOver = false;
     
     resetBoard();
 
