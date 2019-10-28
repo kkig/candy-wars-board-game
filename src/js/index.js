@@ -128,6 +128,7 @@ const selectIconCell = icon => {
     updateMap(icon);
 };
 
+
 /* Chekc If charactors are touching */
 let isTouching = false;
 
@@ -178,6 +179,7 @@ const checkTouching = (row, column) => {
     isHeadTouching || isRightTouching || isLeftTouching || isFootTouching ? isTouching = true : isTouching = false;
 };
 
+
 const selectPlayerTwo = () => {
     let isViolation = true;
 
@@ -200,11 +202,13 @@ const selectPlayerTwo = () => {
     updateMap(playerTwo);
 };
 
+
 const selectObstacleCells = () => {
     for(let i = 0; i < obstacleQuantity; i++) {
         selectIconCell(obstacleOne);
     }
 };
+
 
 const selectWeaponCells = () => {
     // Generate weapons
@@ -406,21 +410,43 @@ const addMovement = player => {
             
         }
 
-        evaluateBattle();
+        evaluateBattle(player);
 
-        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
-        toggleTurn();
     })
 
 };
 
 
+/* Control Action Menu */
+const disableAction = () => {
+    $('#player01-checkbox').prop('checked', false).prop('disabled', true);
+    $('#player02-checkbox').prop('checked', false).prop('disabled', true);
+}
+
+const enableAction = () => {
+    console.log(isPlayerOne);
+
+    isPlayerOne ? 
+    $('#player02-checkbox').prop('disabled', false).prop('checked', true) : 
+    $('#player01-checkbox').prop('disabled', false).prop('checked', true);    
+};
+
+
 /* Check Encounter */
-const evaluateBattle = () => {
+const evaluateBattle = player => {
     checkTouching(playerTwo.row, playerTwo.column);
-    
+
     if(isTouching) {
         console.log('Touching!');
+        
+        enableAction();
+
+        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+        toggleTurn();
+    } else {
+        disableAction();
+        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+        toggleTurn();
     }
 };
 
@@ -447,7 +473,7 @@ const evaluateLife = () => {
 
 };
 
-/* Reset board */
+/* Reset */
 const resetBoard = () => {
     // Reset Board
     $('.board').html('');
@@ -463,6 +489,12 @@ const resetBoard = () => {
     // Create array of DOM elements
     domArray = [];
     createDomArray();
+
+    // Highlight Movable Cells
+    isPlayerOne = true;
+    toggleTurn();
+
+    disableAction();
 };
   
 
@@ -471,11 +503,6 @@ $('.start-button').on('click', function(e) {
     e.preventDefault();
     
     resetBoard();
-
-    // Highlight Movable Cells
-    isPlayerOne = true;
-    toggleTurn();
-
 
     // test to change life
     $('#player02-life').text('90');
