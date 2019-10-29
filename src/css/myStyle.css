@@ -177,23 +177,28 @@ h1 {
 ** Player Menu
 **
 */
+
+#menu-section {
+    color: #464646;
+}
+
 #action-menu01 {
     position: fixed;
-    bottom: 3.5em;
     left: 0;
+    bottom: 0;
 }
 
 #action-menu02 {
     position: fixed;
-    bottom: 3.5em;
     right: 0;
+    bottom: 0;
 }
 
 .command-icon {
     background-color: transparent;
     border: none;
     display: block;
-    color: #ffffff;
+    color: #464646;
     text-transform: uppercase;
     font-size: .5rem;
     letter-spacing: .25em;
@@ -204,21 +209,17 @@ h1 {
     display: block;
 }
 
-#action-menu01 label:before {
-    content: url('../img/icon/badge_yr.png');
+
+.icon-wrapper > img {
+    display: block;
+    margin: 0 .25em 0 1.25em;
+    width: 2em;
 }
 
-#action-menu01 input:checked ~ label:before {
-    content: url('../img/icon/hud_x.png');
+.counters {
+    display: inline-block;
 }
 
-#action-menu02 label:before {
-    content: url('../img/icon/badge_gr.png');
-}
-
-#action-menu02 input:checked ~ label:before {
-    content: url('../img/icon/hud_x.png');
-}
 
 .attack::before {
     content: url('../img/icon/bomb.png');
@@ -232,10 +233,7 @@ h1 {
 
 
 .player-menu label {
-    padding: 15px;
     background: transparent;
-    color: #ffffff;
-    padding: 0 2em;
     border-radius: 5px;
     cursor: auto;
     transition: .5s;
@@ -244,16 +242,9 @@ h1 {
     letter-spacing: .15em;
     margin: 0;
     text-align: center;
+    padding: 0 1.5em;
 }
 
-
-
-.player-menu input:checked ~ label:before {
-    content: url('../img/icon/hud_x.png');
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-    color: #668ad8;
-}
 
 /* Hide checkbox */
 .player-menu input {
@@ -273,13 +264,19 @@ h1 {
    padding: 10px .5em;
    height: auto;
    opacity: 1;
+   background-color: snow;
+   border-radius: 10px;
+   margin: .25em .5em;
 }
 
 
 /* Counters */
+
 .player-counter-section {
-    padding: .75em 1.25em;
+    margin: .5em 1.5em;
+    padding-right: .75em;
     font-size: .75em;
+    display: block;
 }
 
 
@@ -287,29 +284,36 @@ h1 {
     width: 1.5em;
 }
 
+.command-bar {
+    width: 100%;
+    background-color: cadetblue;
+    position: fixed;
+    bottom: 0;
+    height: 4.25em;
+}
 
 #player01-life-icon {
     position: fixed;
-    bottom: 2em;
-    left: 0;    
+    left: 5em;   
+    bottom: 2em; 
 }
 
 #player01-weapon-section {
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: 5em;
 }
 
 #player02-life-icon {
     position: fixed;
     bottom: 2em;
-    right: 0;
+    right: 5.25em;
 }
 
 #player02-weapon-section {
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 5.25em;
 }
 
 
