@@ -12,7 +12,7 @@ const obstacleOneImage = 'img/map/rock.png';
 
 /* Setting */
 const numberOfColumns = 6;
-const numberOfRows = 5;
+const numberOfRows = 12;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
 const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 
@@ -21,8 +21,8 @@ const maxColumnIndex = numberOfColumns - 1;
 
 const maxMovement = 3;
 
-const obstacleQuantity = Math.floor(totalNumberOfCells * .35);  // About 35% of map
-const weaponQuantity = 1; 
+const obstacleQuantity = Math.floor(totalNumberOfCells * .30);  // About 30% of map
+const weaponQuantity = 3; 
 
 // Control which player starts turn
 let isPlayerOne = true;
@@ -473,6 +473,7 @@ const attack = player => {
 };
 
 const selectCommand = player => {
+    $('.' + player.targetClass).toggleClass(player.colorClass);
     
     $('.command-icon').on('click', function(e) {
         e.preventDefault();
@@ -486,6 +487,7 @@ const selectCommand = player => {
         }
     
         $('.' + player.colorClass).off(); 
+        $('.' + player.targetClass).toggleClass(player.colorClass);
         toggleTurn();
 
         $('.command-icon').off();
@@ -499,10 +501,8 @@ const evaluateBattle = player => {
     checkTouching(playerTwo.row, playerTwo.column);
 
     if(isTouching) {
-        $('.' + player.targetClass).toggleClass(player.colorClass);
         enableAction();
         selectCommand(player);
-        $('.' + player.targetClass).toggleClass(player.colorClass);
 
     } else {
  
@@ -564,6 +564,25 @@ const evaluateLifePoint = () => {
     }
 };
 
+/* Height of .box control */
+const adjustBoxHeight = () => {
+    const boxWidth =  $('.box').width();
+    $('.box').height(boxWidth);
+    //console.log(boxWidth);
+};
+
+//$('.box').height($('.box').width());
+
+
+$(window).resize(function() {
+    console.log('Width: ' + $('.box').width());
+    console.log('Height: ' + $('.box').height());
+
+    adjustBoxHeight();
+    console.log('resized!');
+});
+
+
 /* Reset */
 const resetBoard = () => {
 
@@ -582,13 +601,19 @@ const resetBoard = () => {
         generateCells();
     }
     
+    adjustBoxHeight();
+    console.log('Width: ' + $('.box').width());
+    console.log('Height: ' + $('.box').height());
+
     // Create array of DOM elements
     domArray = [];
     createDomArray();
 
+    
     // Highlight Movable Cells
     isPlayerOne = true;
     toggleTurn();
+
 };
   
 

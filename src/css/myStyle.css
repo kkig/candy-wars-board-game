@@ -52,6 +52,7 @@ h1 {
     background-color: #333333;
     border: 2px solid gray;
     min-height: 3em;
+    padding: 1em 1em 0 1em;
 }
 
 /* Map Icons */
@@ -94,8 +95,71 @@ h1 {
 .obstacle-one {
     background-image: url('../img/map/rock.png');
     background-position: bottom;
-    background-size: 3.5em;
+    background-size: 4em;
 }
+
+@media only screen and (min-width: 768px) {
+    .player-one {
+        background-size: 3.25em;
+    }
+
+    .player-two {
+        background-size: 3.25em;
+    }
+
+    .weapon-one {
+        background-size: 3.25em;
+    }
+
+    .weapon-two {
+        background-size: 3.25em;
+    }
+
+    .weapon-three {
+        background-size: 3.25em;
+    }
+
+    .weapon-four {
+        background-size: 4.75em;
+    }
+
+    .obstacle-one {
+        background-size: 6em;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .player-one {
+        background-size: 4em;
+    }
+
+    .player-two {
+        background-size: 4em;
+    }
+
+    .weapon-one {
+        background-size: 3.75em;
+    }
+
+    .weapon-two {
+        background-size: 3.75em;
+    }
+
+    .weapon-three {
+        background-size: 3.75em;
+    }
+
+    .weapon-four {
+        background-size: 5em;
+    }
+
+    .obstacle-one {
+        background-size: 7.75em;
+    }
+}
+
+
+
 
 /* Box classes */
 .player-one-active {
