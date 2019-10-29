@@ -305,7 +305,6 @@ const colorBelow = player => {
 };
 
 const colorLeft = player => {
-    //const playerIndex = $(player.targetClass).index();
     let moveCount = 0;
 
     for(i = player.column; 0 < i; i--) {
@@ -390,7 +389,7 @@ const addMovement = player => {
             e.target.classList.remove(weaponOne.targetClass, weaponTwo.targetClass, weaponThree.targetClass, weaponFour.targetClass);
             e.target.classList.add(player.targetClass);
 
-            updateWeaponIcon(player);
+            updatePlayerWeapon(player);
 
         } else {
 
@@ -412,7 +411,7 @@ const addMovement = player => {
 
 };
 
-const updateWeaponIcon = player => {
+const updatePlayerWeapon = player => {
     if(player.id != playerTwo.id) {
         $('#player01-weapon').attr('src', player.weapon.image);
         $('#player01-atk-pt').text(player.weapon.attackPoint);
@@ -426,10 +425,10 @@ const updateWeaponIcon = player => {
 
 const resetWeapon = () => {
     playerOne.weapon = weaponOne;
-    updateWeaponIcon(playerOne);
+    updatePlayerWeapon(playerOne);
 
     playerTwo.weapon = weaponOne;
-    updateWeaponIcon(playerTwo);
+    updatePlayerWeapon(playerTwo);
 };
 
 
@@ -451,8 +450,8 @@ const enableAction = () => {
 let isFighting = false;
 
 
-const attack = () => {
-    if(isPlayerOne) {
+const attack = player => {
+    if(player.id != playerTwo.id) {
         playerOne.isDefending ? playerOne.life -= (playerTwo.weapon.attackPoint / 2) : 
         playerOne.life -= playerTwo.weapon.attackPoint;
 
@@ -473,13 +472,11 @@ const attack = () => {
 
 };
 
-const prepareAction = player => {
+const selectCommand = player => {
+    
     $('.command-icon').on('click', function(e) {
         e.preventDefault();
         
-
-        //const clickedClass = this.className;
-        //console.log($(e.target).hasClass('attack'));
         if($(e.target).hasClass('attack')) {
             isFighting = true;
         } else if($(e.target).hasClass('defend')) {
@@ -487,18 +484,12 @@ const prepareAction = player => {
         } else {
             alert('Error has occured!');
         }
-
     
-        $('.' + player.colorClass).removeClass(player.colorClass).off(); 
+        $('.' + player.colorClass).off(); 
         toggleTurn();
 
         $('.command-icon').off();
         disableAction();
-
-        //console.log(playerOne.life -= playerTwo.weapon.attackPoint);
-
-        //playerOne.life -= playerTwo.weapon.attackPoint;
-        //updateLifePoint(playerOne);
 
     })
 
@@ -508,9 +499,10 @@ const evaluateBattle = player => {
     checkTouching(playerTwo.row, playerTwo.column);
 
     if(isTouching) {
-
+        $('.' + player.targetClass).toggleClass(player.colorClass);
         enableAction();
-        prepareAction(player);
+        selectCommand(player);
+        $('.' + player.targetClass).toggleClass(player.colorClass);
 
     } else {
  
@@ -522,7 +514,7 @@ const evaluateBattle = player => {
 /* Control Turn */
 const playerTurn = player => {
     if(isFighting) {
-        attack();
+        attack(player);
     }
     evaluateLifePoint();
 
@@ -569,9 +561,6 @@ const evaluateLifePoint = () => {
 
         alert(`The winner is ${winner.name}! Please reset the game.`);
         isGameOver = true;
-        //$('.board').off();
-        //alert(`Winner is : ${winner.name}`);
-        //return $('.message').text(`Winner is : ${winner.name}`);
     }
 };
 
