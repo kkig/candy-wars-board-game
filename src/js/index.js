@@ -12,7 +12,7 @@ const obstacleOneImage = 'img/map/rock.png';
 
 /* Setting */
 const numberOfColumns = 6;
-const numberOfRows = 12;
+const numberOfRows = 6;
 const totalNumberOfCells = numberOfColumns * numberOfRows;
 const columnDivide = 12 / numberOfColumns; //class = `col-${columnDivide}`
 

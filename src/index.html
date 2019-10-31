@@ -25,7 +25,19 @@
         <section id="jumbotron">
             <div class="container text-center">
                 <h1>Candy Wars</h1>
-                <p class="jumbotron-text">Aliens and Candy Bombs!</p>  
+                <p>Aliens and Candy Bombs</p> 
+
+                <div class="desc-wrapper desc-rule text-center">
+                    <ul class="weapon-desc">
+                        <li>Blue Jerry Bomb: 10 points</li>
+                        <li>Green Jerry Bomb: 20 points</li>
+                        <li>Yellow Jelly Bomb: 30 points</li>
+                        <li>Red Candy Bomb: 40 points</li>
+                    </ul>
+                    <p>Aliens have small hands. <br />
+                        They can only hold one bomb.</p>
+                </div>
+
                 <button type="button" class="start-button" href="#">Start</button>                
             </div>
 
@@ -47,10 +59,10 @@
 
                     <div class="player-menu" id="action-menu01">
                         <input type="checkbox" id="player01-checkbox"/>
-                        <div class="hidden_show player-commands">
+                        <div class="player01-commands  hidden_show  ">
                             <!--Hidden menu-->
-                            <button type="button" class="player01 command-icon attack">Attack</button>
-                            <button type="button" class="player01 command-icon defend">Defend</button>
+                            <button type="button" class="command-icon attack">Attack</button>
+                            <button type="button" class="command-icon defend">Defend</button>
                         </div> 
                         <div class="icon-wrapper">
                             <img src="img/icon/badge_yr.png" />
@@ -72,10 +84,10 @@
 
                     <div class="player-menu" id="action-menu02">
                         <input type="checkbox" id="player02-checkbox">
-                        <div class="hidden_show player-commands">
+                        <div class="player02-commands hidden_show player-commands">
                             <!--Hidden menu-->
-                            <button type="button" class="player02 command-icon attack">Attack</button>
-                            <button type="button" class="player02 command-icon defend">Defend</button>
+                            <button type="button" class="command-icon attack">Attack</button>
+                            <button type="button" class="command-icon defend">Defend</button>
                         </div>
                         <div class="icon-wrapper">
                             <img src="img/icon/badge_gr.png" />
@@ -99,17 +111,6 @@
             </div>
         </section>      
         
-        <section class="desc-rule text-center">
-            <div class="desc-wrapper">
-                <p>Note: Aliens have small hands. They can only hold one bomb!</p>
-                <ul class="weapon-desc">
-                    <li>Blue Jerry Bomb: 10 points</li>
-                    <li>Green Jerry Bomb: 20 points</li>
-                    <li>Yellow Jelly Bomb: 30 points</li>
-                    <li>Red Candy Bomb: 40 points</li>
-                </ul>
-            </div>
-        </section>
 
     </main>
 
