@@ -1,3 +1,23 @@
+/* Basic Setting */
+:root {
+    --basic-text-color:  #333333;
+    --light-text-color: #ffffff;
+
+    --board-height: 90vmin;
+    --cell-size: calc(var(--board-height) / 10);
+     
+    --cell-border-color: gray;
+    --cell-border-style: 2px solid var(--cell-border-color);
+    --cell-background-color: var(--basic-text-color);
+
+    --command-text-size: .75rem;
+
+    --player-one-color: #FFC733;
+    --player-two-color: #3FE369;
+
+    --counter-section-margin: .5em 0;
+}
+
 body {
     background-image: url('../img/map/rpgTile_sand.png');
     background-repeat: repeat;

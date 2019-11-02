@@ -1,0 +1,29 @@
+:root {
+  --basic-text-color: #333333;
+  --basic-button-color: #333333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: .025em;
+  color: var(--basic-text-color);
+}
+
+.btn {
+  font-size: .75rem;
+  padding: .75em 1.5em;
+  letter-spacing: .15rem;
+  border: 2px solid var(--basic-button-color);
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  color: #333333;
+  background-color: transparent;
+}

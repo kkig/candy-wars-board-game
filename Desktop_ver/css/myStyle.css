@@ -1,0 +1,274 @@
+/* Basic Setting */
+:root {
+    --basic-text-color:  #333333;
+    --light-text-color: #ffffff;
+
+    --board-height: 90vmin;
+    --cell-size: calc(var(--board-height) / 10);
+     
+    --cell-border-color: gray;
+    --cell-border-style: 2px solid var(--cell-border-color);
+    --cell-background-color: var(--basic-text-color);
+
+    --command-text-size: .75rem;
+
+    --player-one-color: #FFC733;
+    --player-two-color: #3FE369;
+
+    --counter-section-margin: .5em 0;
+}
+
+
+body {
+    background-image: url('../img/map/rpgTile_sand.png');
+    background-repeat: repeat;
+    color: var(--light-text-color);
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+main {
+    padding: 2em 0;
+}
+
+h1 {
+    font-family: 'Fascinate', cursive;
+    letter-spacing: .25em;
+}
+
+
+/* Jumbotraon section */
+#jumbotron {
+    width: var(--board-height);
+    margin: 1.5em auto;
+}
+
+
+.title-section > button {
+    margin: 1em 0;
+}
+
+.jumbotron-text {
+    margin-bottom: 2.5em;
+}
+
+.start-button {
+    color: var(--light-text-color);
+    background-color: #333333;
+    border: 1.25px solid #333333;
+    padding: 1.25em 1.5em 1em 1.5em;
+    border-radius: 10px;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin: 0 auto;
+}
+
+.start-button:hover {
+    color: var(--basic-text-color);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.desc-rule > p {
+    margin-bottom: 0;
+}
+
+
+/* 
+**
+** Player Menu
+**
+*/
+
+.command-section {
+    display: flex;
+}
+
+#action-menu01 {
+    justify-content: flex-start;
+}
+
+#action-menu02 {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.command-icon {
+    border: none;
+    display: block;
+}
+
+.player-command-icon label:before {
+    transition: .2s;
+    display: block;
+}
+
+.icon-wrapper {
+    margin: var(--counter-section-margin);
+    font-size: var(--command-text-size);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+.hidden_show {
+    display: inline-flex;
+}
+
+.icon-wrapper > img {
+    display: inline-block;
+    width: 2em;
+}
+
+.counters {
+    display: inline-block;
+}
+
+
+.attack::before {
+    content: url('../img/icon/bomb.png');
+    display: block;
+}
+
+.defend::before {
+    content: url('../img/icon/star.png');
+    display: block;
+}
+
+
+.player-command-icon label {
+
+}
+
+
+/* Hide checkbox */
+.player-command-icon input {
+   display: none;
+}
+
+/* Disable inside */
+.player-command-icon .hidden_show {
+   height: 0;
+   padding: 0;
+   overflow: hidden;
+   opacity: 0;
+   transition: 0.8s;
+}
+
+.player-command-icon input:checked ~ .hidden_show {
+   padding: 10px .5em;
+   height: auto;
+   opacity: 1;
+   background-color: snow;
+   border-radius: 10px;
+   margin: .25em .5em;
+   font-size: .75rem;
+}
+
+
+/* Counters */
+.player-counter-section {
+    margin: var(--counter-section-margin);
+    padding-right: .75em;
+    display: block;
+}
+
+
+.player-counter-section > img {
+    width: 1.5em;
+}
+
+
+.counter-x {
+    padding: 0 .25em;
+}
+
+.atk-pt-count {
+    padding: 0 .25em;
+}
+
+
+
+/* Weapon Description */
+.desc-rule {
+    font-size: var(--command-text-size);
+}
+
+.weapon-desc {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+
+/* Board background */
+.board-wrapper {
+    display: block;
+}
+
+.board {
+    justify-content: center;
+    width: var(--board-height);
+    margin: 0 auto; 
+}
+
+.box {
+    background-color: var(--cell-background-color);
+    border: var(--cell-border-style);
+    width: var(--cell-size);
+    height: var(--cell-size);
+}
+
+/* Map Icons */
+.map-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player-one {
+    background-image: url('../img/player/player_yr.png');
+    background-size: 1.5em;
+}
+
+.player-two {
+    background-image: url('../img/player/player_gr.png');
+    background-size: 1.5em;
+}
+
+.weapon-one {
+    background-image: url('../img/weapon/bean_blue.png');
+    background-size: 1.75em;
+}
+
+.weapon-two {
+    background-image: url('../img/weapon/bean_green.png');
+    background-size: 1.75em;
+}
+
+.weapon-three {
+    background-image: url('../img/weapon/jelly_yellow.png');
+    background-size: 1.75em;
+}
+
+.weapon-four {
+    background-image: url('../img/weapon/wrappedtrans_red.png');
+    background-size: 2.5em;
+}
+
+.obstacle-one {
+    background-image: url('../img/map/rock.png');
+    background-position: bottom;
+    background-size: 4em;
+}
+
+
+
+/* Box classes */
+.player-one-active {
+    border: 2px solid var(--player-one-color);
+}
+
+.player-two-active {
+    border: 2px solid var(--player-two-color);
+}
+
+
