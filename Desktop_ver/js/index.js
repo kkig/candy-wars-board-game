@@ -475,7 +475,7 @@ const attack = player => {
 const selectCommand = player => {
     $('.' + player.targetClass).toggleClass(player.colorClass);
     
-    $('.command-icon').on('click', function(e) {
+    $('.command-btn').on('click', function(e) {
         e.preventDefault();
         
         if($(e.target).hasClass('attack')) {
@@ -490,7 +490,7 @@ const selectCommand = player => {
         $('.' + player.targetClass).toggleClass(player.colorClass);
         toggleTurn();
 
-        $('.command-icon').off();
+        $('.command-btn').off();
         disableAction();
 
     })
@@ -606,3 +606,6 @@ $('.start-button').on('click', function(e) {
     resetBoard();
 
 });
+
+
+resetBoard();

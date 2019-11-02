@@ -3,6 +3,16 @@
     --basic-text-color:  #333333;
     --light-text-color: #ffffff;
 
+    --cmd-btn-text-color: #ffffff;
+
+    --player-section-background: antiquewhite;
+
+    --player-one-color: #FFC733;
+    --player-two-color: #3FE369;
+    --attack-btn-color: orangered;
+    --defend-btn-color: forestgreen;
+
+
     --board-height: 90vmin;
     --cell-size: calc(var(--board-height) / 10);
      
@@ -10,12 +20,15 @@
     --cell-border-style: 2px solid var(--cell-border-color);
     --cell-background-color: var(--basic-text-color);
 
-    --command-text-size: .75rem;
+    --title-font-family: 'Fascinate', cursive;
 
-    --player-one-color: #FFC733;
-    --player-two-color: #3FE369;
+    --basic-font-size: 16px;
 
+    --game-section-margin: 1em auto;
     --counter-section-margin: .5em 0;
+
+    --basic-player-size: 50%;
+    --basic-weapon-size: 50%; 
 }
 
 
@@ -24,6 +37,7 @@ body {
     background-repeat: repeat;
     color: var(--light-text-color);
     font-family: 'Josefin Sans', sans-serif;
+    font-size: var(--basic-font-size);
 }
 
 main {
@@ -31,8 +45,14 @@ main {
 }
 
 h1 {
-    font-family: 'Fascinate', cursive;
+    font-family: var(--title-font-family);
     letter-spacing: .25em;
+}
+
+h2 {
+    font-family: var(--title-font-family);
+    font-size: 1.5rem;
+    letter-spacing: .075em;
 }
 
 
@@ -69,9 +89,6 @@ h1 {
     text-decoration: none;
 }
 
-.desc-rule > p {
-    margin-bottom: 0;
-}
 
 
 /* 
@@ -80,88 +97,95 @@ h1 {
 **
 */
 
-.command-section {
-    display: flex;
+.player-screen, .board-section {
+    margin: var(--game-section-margin);
 }
 
-#action-menu01 {
-    justify-content: flex-start;
-}
-
-#action-menu02 {
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.command-icon {
-    border: none;
-    display: block;
-}
-
-.player-command-icon label:before {
-    transition: .2s;
-    display: block;
+.player-screen {
+    width: 100%;
 }
 
 .icon-wrapper {
     margin: var(--counter-section-margin);
-    font-size: var(--command-text-size);
     letter-spacing: .15em;
-    text-transform: uppercase;
+}
+
+.icon-wrapper > h2 {
+    font-size: 1rem;
+    margin: 1em 0;
+}
+
+.icon-wrapper > img {
+    width: 3em;
+}
+
+.command-menu {
+    margin: 0 1em;
+    padding: 1em;
+    background-color: var(--player-section-background);
+    color: var(--basic-text-color);
+    border-radius: 15px;
+    height: 100%;
+}
+
+.player-command-btn {
+    display: inline-flex;
+}
+
+.command-btn {
+    font-size: .75rem;
+    letter-spacing: .15em;
+    margin: .5em;
+    text-transform: none;
+}
+
+button.attack {
+    color: var(--cmd-btn-text-color);
+    background-color: var(--attack-btn-color);
+    border: var(--attack-btn-color);
+}
+
+button.attack:hover {
+    color: var(--attack-btn-color);
+    background-color: var(--player-section-background);
+}
+
+button.defend {
+    color: var(--cmd-btn-text-color);
+    background-color: var(--defend-btn-color);
+    border: var(--defend-btn-color);
+}
+
+button.defend:hover {
+    color: var(--defend-btn-color);
+    background-color: var(--player-section-background);
 }
 
 .hidden_show {
     display: inline-flex;
 }
 
-.icon-wrapper > img {
-    display: inline-block;
-    width: 2em;
-}
-
 .counters {
-    display: inline-block;
-}
-
-
-.attack::before {
-    content: url('../img/icon/bomb.png');
     display: block;
+    padding: .5em 0;
 }
-
-.defend::before {
-    content: url('../img/icon/star.png');
-    display: block;
-}
-
-
-.player-command-icon label {
-
-}
-
 
 /* Hide checkbox */
-.player-command-icon input {
+.player-command-btn input {
    display: none;
 }
 
 /* Disable inside */
-.player-command-icon .hidden_show {
-   height: 0;
-   padding: 0;
-   overflow: hidden;
-   opacity: 0;
-   transition: 0.8s;
+.player-command-btn .hidden_show {
+    visibility: hidden;
+    font-size: .75rem;
 }
 
-.player-command-icon input:checked ~ .hidden_show {
-   padding: 10px .5em;
+.player-command-btn input:checked ~ .hidden_show {
    height: auto;
    opacity: 1;
-   background-color: snow;
-   border-radius: 10px;
-   margin: .25em .5em;
-   font-size: .75rem;
+   visibility: visible;
+   display: inline-block;
 }
 
 
@@ -186,19 +210,6 @@ h1 {
     padding: 0 .25em;
 }
 
-
-
-/* Weapon Description */
-.desc-rule {
-    font-size: var(--command-text-size);
-}
-
-.weapon-desc {
-    list-style-type: none;
-    padding-inline-start: 0;
-}
-
-
 /* Board background */
 .board-wrapper {
     display: block;
@@ -206,6 +217,7 @@ h1 {
 
 .board {
     justify-content: center;
+    max-width: 100%;
     width: var(--board-height);
     margin: 0 auto; 
 }
@@ -215,6 +227,7 @@ h1 {
     border: var(--cell-border-style);
     width: var(--cell-size);
     height: var(--cell-size);
+    border-radius: 10px;
 }
 
 /* Map Icons */
@@ -226,38 +239,38 @@ h1 {
 
 .player-one {
     background-image: url('../img/player/player_yr.png');
-    background-size: 1.5em;
+    background-size: var(--basic-player-size);
 }
 
 .player-two {
     background-image: url('../img/player/player_gr.png');
-    background-size: 1.5em;
+    background-size: var(--basic-player-size);
 }
 
 .weapon-one {
     background-image: url('../img/weapon/bean_blue.png');
-    background-size: 1.75em;
+    background-size: var(--basic-weapon-size);
 }
 
 .weapon-two {
     background-image: url('../img/weapon/bean_green.png');
-    background-size: 1.75em;
+    background-size: var(--basic-weapon-size);
 }
 
 .weapon-three {
     background-image: url('../img/weapon/jelly_yellow.png');
-    background-size: 1.75em;
+    background-size: var(--basic-weapon-size);
 }
 
 .weapon-four {
     background-image: url('../img/weapon/wrappedtrans_red.png');
-    background-size: 2.5em;
+    background-size: calc(var(--basic-weapon-size) + 15%);
 }
 
 .obstacle-one {
     background-image: url('../img/map/rock.png');
     background-position: bottom;
-    background-size: 4em;
+    background-size: contain;
 }
 
 
@@ -265,10 +278,24 @@ h1 {
 /* Box classes */
 .player-one-active {
     border: 2px solid var(--player-one-color);
+    cursor: pointer;
 }
 
 .player-two-active {
     border: 2px solid var(--player-two-color);
+    cursor: pointer;
 }
 
 
+
+/* Desktop Size Media Query */
+@media only screen and (min-width: 768px) {
+    .player-screen {
+        max-width: calc((100vmax - var(--board-height)) / 2);
+    }
+
+    .icon-wrapper > h2 {
+        font-size: 1.25rem;
+        margin: 1em 0;
+    }
+}
