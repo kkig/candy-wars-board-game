@@ -5,15 +5,18 @@
 
     --cmd-btn-text-color: #ffffff;
 
-    --player-section-background: antiquewhite;
+    --player-section-background: bisque;
 
     --player-one-color: #FFC733;
-    --player-two-color: #3FE369;
+    --player-two-color: limegreen;
     --attack-btn-color: orangered;
     --defend-btn-color: forestgreen;
 
+    --attack-btn-style: 1.5px solid var(--attack-btn-color);
+    --defend-btn-style: 1.5px solid var(--defend-btn-color);
 
-    --board-height: 90vmin;
+
+    --board-height: 80vmin;
     --cell-size: calc(var(--board-height) / 10);
      
     --cell-border-color: gray;
@@ -29,6 +32,8 @@
 
     --basic-player-size: 50%;
     --basic-weapon-size: 50%; 
+
+    --weapon-item-image-size: 1.5em;
 }
 
 
@@ -55,11 +60,17 @@ h2 {
     letter-spacing: .075em;
 }
 
+h3 {
+    font-family: var(--title-font-family);
+    font-size: .75rem;
+    letter-spacing: .25em;    
+}
+
 
 /* Jumbotraon section */
 #jumbotron {
     width: var(--board-height);
-    margin: 1.5em auto;
+    margin: 1.25em auto;
 }
 
 
@@ -89,6 +100,32 @@ h2 {
     text-decoration: none;
 }
 
+/* Weapon Score Section */
+.weapon-list-section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: baseline;
+    width: var(--board-height);
+    background-color: var(--cell-border-color);
+    border-radius: 10px;
+    padding: .5em .75em;
+    margin: .5em;
+}
+
+.weapon-list-section > h3 {
+    font-size: .75rem;
+    margin: unset;
+}
+
+.weapon-item {
+    display: inline-block;
+    font-size: .75em;
+}
+
+.weapon-item > img {
+    width: var(--weapon-item-image-size);
+}
 
 
 /* 
@@ -96,6 +133,9 @@ h2 {
 ** Player Menu
 **
 */
+#game-screen {
+    max-width: 100vw;
+}
 
 .player-screen, .board-section {
     margin: var(--game-section-margin);
@@ -120,12 +160,13 @@ h2 {
 }
 
 .command-menu {
-    margin: 0 1em;
+    margin: 0 auto;
     padding: 1em;
     background-color: var(--player-section-background);
     color: var(--basic-text-color);
     border-radius: 15px;
     height: 100%;
+    width: fit-content;
 }
 
 .player-command-btn {
@@ -135,30 +176,32 @@ h2 {
 .command-btn {
     font-size: .75rem;
     letter-spacing: .15em;
-    margin: .5em;
+    margin: .25em;
     text-transform: none;
 }
 
 button.attack {
     color: var(--cmd-btn-text-color);
     background-color: var(--attack-btn-color);
-    border: var(--attack-btn-color);
+    border: var(--attack-btn-style);
 }
 
 button.attack:hover {
     color: var(--attack-btn-color);
     background-color: var(--player-section-background);
+    border: var(--attack-btn-style);
 }
 
 button.defend {
     color: var(--cmd-btn-text-color);
     background-color: var(--defend-btn-color);
-    border: var(--defend-btn-color);
+    border: var(--defend-btn-style);
 }
 
 button.defend:hover {
     color: var(--defend-btn-color);
     background-color: var(--player-section-background);
+    border: var(--defend-btn-style);
 }
 
 .hidden_show {
@@ -227,7 +270,6 @@ button.defend:hover {
     border: var(--cell-border-style);
     width: var(--cell-size);
     height: var(--cell-size);
-    border-radius: 10px;
 }
 
 /* Map Icons */
@@ -292,6 +334,7 @@ button.defend:hover {
 @media only screen and (min-width: 768px) {
     .player-screen {
         max-width: calc((100vmax - var(--board-height)) / 2);
+        width: fit-content;
     }
 
     .icon-wrapper > h2 {
