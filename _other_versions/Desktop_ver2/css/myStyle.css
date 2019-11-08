@@ -5,7 +5,7 @@
 
     --cmd-btn-text-color: #ffffff;
 
-    --player-section-background: bisque;
+    --player-section-background: floralwhite;
 
     --player-one-color: #FFC733;
     --player-two-color: limegreen;
@@ -16,7 +16,7 @@
     --defend-btn-style: 1.5px solid var(--defend-btn-color);
 
 
-    --board-height: 80vmin;
+    --board-height: 90vmin;
     --cell-size: calc(var(--board-height) / 10);
      
     --cell-border-color: gray;
@@ -86,12 +86,12 @@ h3 {
     color: var(--light-text-color);
     background-color: #333333;
     border: 1.25px solid #333333;
-    padding: 1.25em 1.5em 1em 1.5em;
+    padding: 0 1.5em;
     border-radius: 10px;
     font-size: .75rem;
     letter-spacing: .25em;
     text-transform: uppercase;
-    margin: 0 auto;
+    margin: .5em auto;
 }
 
 .start-button:hover {
@@ -101,12 +101,17 @@ h3 {
 }
 
 /* Weapon Score Section */
+.board-below {
+    display: flex;
+    width: var(--board-height);
+}
+
 .weapon-list-section {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: baseline;
-    width: var(--board-height);
+    width: 75%;
     background-color: var(--cell-border-color);
     border-radius: 10px;
     padding: .5em .75em;
@@ -141,36 +146,41 @@ h3 {
     margin: var(--game-section-margin);
 }
 
+#action-menu01 {
+    justify-content: flex-start;
+}
+
+#action-menu02 {
+    justify-content: flex-end;
+}
+
 .player-screen {
-    width: 100%;
+    flex: auto;
+}
+
+.counter-seciton {
+    display: flex;
+    width: var(--board-height);
 }
 
 .icon-wrapper {
     margin: var(--counter-section-margin);
     letter-spacing: .15em;
+    display: inline-block;
 }
 
 .icon-wrapper > h2 {
     font-size: 1rem;
-    margin: 1em 0;
+    display: inline-block;
 }
 
 .icon-wrapper > img {
-    width: 3em;
+    width: 2em;
 }
 
 .command-menu {
-    margin: 0 auto;
-    padding: 1em;
-    background-color: var(--player-section-background);
     color: var(--basic-text-color);
     border-radius: 15px;
-    height: 100%;
-    width: fit-content;
-}
-
-.player-command-btn {
-    display: inline-flex;
 }
 
 .command-btn {
@@ -220,7 +230,7 @@ button.defend:hover {
 
 /* Disable inside */
 .player-command-btn .hidden_show {
-    visibility: hidden;
+    display: none;
     font-size: .75rem;
 }
 
@@ -229,6 +239,10 @@ button.defend:hover {
    opacity: 1;
    visibility: visible;
    display: inline-block;
+   position: absolute;
+   background-color: var(--player-section-background);
+   border-radius: 10px;
+   padding: 1em;
 }
 
 
@@ -332,13 +346,7 @@ button.defend:hover {
 
 /* Desktop Size Media Query */
 @media only screen and (min-width: 768px) {
-    .player-screen {
-        max-width: calc((100vmax - var(--board-height)) / 2);
-        width: fit-content;
-    }
-
     .icon-wrapper > h2 {
         font-size: 1.25rem;
-        margin: 1em 0;
     }
 }
