@@ -340,8 +340,7 @@ button.defend:hover {
 @media only screen and (min-width: 768px) {
 
     .player-screen {
-        max-width: calc((100vmax - var(--board-height)) / 2);
-        width: fit-content;
+        width: auto;
     }
 
     .icon-wrapper > h2 {

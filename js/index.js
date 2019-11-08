@@ -51,8 +51,8 @@ const weaponFour = new MapIcon(4, 'Red Candy Bomb', 'weapon-four', weaponFourIma
 
 const obstacleOne = new MapIcon(5, 'Dummy Rock', 'obstacle-one', obstacleOneImage);
 
-const playerOne = new MapIcon(6, 'Squeaky', 'player-one', playerOneImage);
-const playerTwo = new MapIcon(7, 'Mr. Pickles', 'player-two', playerTwoImage);
+const playerOne = new MapIcon(6, 'Player 01', 'player-one', playerOneImage);
+const playerTwo = new MapIcon(7, 'Player 02', 'player-two', playerTwoImage);
 
 // Add associated class to players
 playerOne.colorClass = 'player-one-active';
