@@ -158,6 +158,7 @@ h3 {
     flex: auto;
 }
 
+
 .counter-seciton {
     display: flex;
     width: var(--board-height);
@@ -176,11 +177,16 @@ h3 {
 
 .icon-wrapper > img {
     width: 2em;
+    vertical-align: text-bottom;
 }
 
 .command-menu {
     color: var(--basic-text-color);
-    border-radius: 15px;
+    font-size: .75rem;
+}
+
+.command-menu > img {
+    vertical-align: text-bottom;
 }
 
 .command-btn {
@@ -218,11 +224,6 @@ button.defend:hover {
     display: inline-flex;
 }
 
-.counters {
-    display: block;
-    padding: .5em 0;
-}
-
 /* Hide checkbox */
 .player-command-btn input {
    display: none;
@@ -247,24 +248,40 @@ button.defend:hover {
 
 
 /* Counters */
+.bar-label {
+    margin-left: .5em;
+}
+
+.life-point {
+    margin: var(--counter-bar-margin);
+    padding: var(--counter-bar-padding);
+    width: 100%;
+    background-color: yellowgreen;
+    color: #ffffff;
+}
+
 .player-counter-section {
+    --counter-bar-margin: 0 .5em;
+    --counter-bar-padding: 0 .25em;
+
     margin: var(--counter-section-margin);
     padding-right: .75em;
-    display: block;
+    display: flex;
 }
 
 
 .player-counter-section > img {
+    object-fit: contain;
     width: 1.5em;
 }
 
 
-.counter-x {
-    padding: 0 .25em;
-}
-
 .atk-pt-count {
-    padding: 0 .25em;
+    margin: var(--counter-bar-margin);
+    padding: var(--counter-bar-padding);
+    background-color: orangered;
+    width: 10%;
+    color: #ffffff;
 }
 
 /* Board background */

@@ -51,8 +51,8 @@ const weaponFour = new MapIcon(4, 'Red Candy Bomb', 'weapon-four', weaponFourIma
 
 const obstacleOne = new MapIcon(5, 'Dummy Rock', 'obstacle-one', obstacleOneImage);
 
-const playerOne = new MapIcon(6, 'Squeaky', 'player-one', playerOneImage);
-const playerTwo = new MapIcon(7, 'Mr. Pickles', 'player-two', playerTwoImage);
+const playerOne = new MapIcon(6, 'Player 1', 'player-one', playerOneImage);
+const playerTwo = new MapIcon(7, 'Player 2', 'player-two', playerTwoImage);
 
 // Add associated class to players
 playerOne.colorClass = 'player-one-active';
@@ -415,9 +415,12 @@ const updatePlayerWeapon = player => {
     if(player.id != playerTwo.id) {
         $('#player01-weapon').attr('src', player.weapon.image);
         $('#player01-atk-pt').text(player.weapon.attackPoint);
+        $('#player01-atk-pt').css('width', `${player.weapon.attackPoint}%`);
     } else if(player.id != playerOne.id) {
         $('#player02-weapon').attr('src', player.weapon.image);
         $('#player02-atk-pt').text(player.weapon.attackPoint);
+        console.log(`${player.weapon.attackPoint}%`);
+        $('#player02-atk-pt').css('width', `${player.weapon.attackPoint}%`);
     } else {
         alert('Error has occured!');
     }
@@ -547,11 +550,19 @@ const resetLife = () => {
     playerTwo.life = 100;
 
     $('#player01-life').text(playerOne.life);
+    $('#player01-life').css('width', `${playerOne.life}%`)
     $('#player02-life').text(playerTwo.life);
+    $('#player02-life').css('width', `${playerTwo.life}%`)
 };
 
 const updateLifePoint = () => {
-    isPlayerOne ? $('#player01-life').text(playerOne.life) : $('#player02-life').text(playerTwo.life);
+    if(isPlayerOne) {
+        $('#player01-life').text(playerOne.life);
+        $('#player01-life').css('width', `${playerOne.life}%`);
+    } else {
+        $('#player02-life').text(playerTwo.life);
+        $('#player02-life').css('width', `${playerTwo.life}%`);
+    }
 };
 
 const evaluateLifePoint = () => {
