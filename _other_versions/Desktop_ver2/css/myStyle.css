@@ -5,7 +5,7 @@
 
     --cmd-btn-text-color: #ffffff;
 
-    --player-section-background: floralwhite;
+    --player-section-background: bisque;
 
     --player-one-color: #FFC733;
     --player-two-color: limegreen;
@@ -16,7 +16,7 @@
     --defend-btn-style: 1.5px solid var(--defend-btn-color);
 
 
-    --board-height: 90vmin;
+    --board-height: 80vmin;
     --cell-size: calc(var(--board-height) / 10);
      
     --cell-border-color: gray;
@@ -66,6 +66,11 @@ h3 {
     letter-spacing: .25em;    
 }
 
+.wrapper {
+    display: grid;
+    grid-template-columns: auto;
+}
+
 
 /* Jumbotraon section */
 #jumbotron {
@@ -86,12 +91,12 @@ h3 {
     color: var(--light-text-color);
     background-color: #333333;
     border: 1.25px solid #333333;
-    padding: 0 1.5em;
+    padding: 1.25em 1.5em 1em 1.5em;
     border-radius: 10px;
     font-size: .75rem;
     letter-spacing: .25em;
     text-transform: uppercase;
-    margin: .5em auto;
+    margin: 0 auto;
 }
 
 .start-button:hover {
@@ -101,17 +106,12 @@ h3 {
 }
 
 /* Weapon Score Section */
-.board-below {
-    display: flex;
-    width: var(--board-height);
-}
-
 .weapon-list-section {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
     align-items: baseline;
-    width: 75%;
+    width: var(--board-height);
     background-color: var(--cell-border-color);
     border-radius: 10px;
     padding: .5em .75em;
@@ -124,7 +124,6 @@ h3 {
 }
 
 .weapon-item {
-    display: inline-block;
     font-size: .75em;
 }
 
@@ -142,51 +141,40 @@ h3 {
     max-width: 100vw;
 }
 
+.player-screen {
+    width: 100%;
+}
+
 .player-screen, .board-section {
     margin: var(--game-section-margin);
-}
-
-#action-menu01 {
-    justify-content: flex-start;
-}
-
-#action-menu02 {
-    justify-content: flex-end;
-}
-
-.player-screen {
-    flex: auto;
-}
-
-
-.counter-seciton {
-    display: flex;
-    width: var(--board-height);
 }
 
 .icon-wrapper {
     margin: var(--counter-section-margin);
     letter-spacing: .15em;
-    display: inline-block;
 }
 
 .icon-wrapper > h2 {
     font-size: 1rem;
-    display: inline-block;
+    margin: 1em 0;
 }
 
 .icon-wrapper > img {
-    width: 2em;
-    vertical-align: text-bottom;
+    width: 3em;
 }
 
 .command-menu {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: var(--player-section-background);
     color: var(--basic-text-color);
-    font-size: .75rem;
+    border-radius: 15px;
+    height: 100%;
+    width: fit-content;
 }
 
-.command-menu > img {
-    vertical-align: text-bottom;
+.player-command-btn {
+    display: inline-flex;
 }
 
 .command-btn {
@@ -224,6 +212,11 @@ button.defend:hover {
     display: inline-flex;
 }
 
+.counters {
+    display: block;
+    padding: .5em 0;
+}
+
 /* Hide checkbox */
 .player-command-btn input {
    display: none;
@@ -231,7 +224,7 @@ button.defend:hover {
 
 /* Disable inside */
 .player-command-btn .hidden_show {
-    display: none;
+    visibility: hidden;
     font-size: .75rem;
 }
 
@@ -240,48 +233,28 @@ button.defend:hover {
    opacity: 1;
    visibility: visible;
    display: inline-block;
-   position: absolute;
-   background-color: var(--player-section-background);
-   border-radius: 10px;
-   padding: 1em;
 }
 
 
 /* Counters */
-.bar-label {
-    margin-left: .5em;
-}
-
-.life-point {
-    margin: var(--counter-bar-margin);
-    padding: var(--counter-bar-padding);
-    width: 100%;
-    background-color: yellowgreen;
-    color: #ffffff;
-}
-
 .player-counter-section {
-    --counter-bar-margin: 0 .5em;
-    --counter-bar-padding: 0 .25em;
-
     margin: var(--counter-section-margin);
     padding-right: .75em;
-    display: flex;
+    display: block;
 }
 
 
 .player-counter-section > img {
-    object-fit: contain;
     width: 1.5em;
 }
 
 
+.counter-x {
+    padding: 0 .25em;
+}
+
 .atk-pt-count {
-    margin: var(--counter-bar-margin);
-    padding: var(--counter-bar-padding);
-    background-color: orangered;
-    width: 10%;
-    color: #ffffff;
+    padding: 0 .25em;
 }
 
 /* Board background */
@@ -294,6 +267,8 @@ button.defend:hover {
     max-width: 100%;
     width: var(--board-height);
     margin: 0 auto; 
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .box {
@@ -363,7 +338,13 @@ button.defend:hover {
 
 /* Desktop Size Media Query */
 @media only screen and (min-width: 768px) {
+
+    .player-screen {
+        width: auto;
+    }
+
     .icon-wrapper > h2 {
         font-size: 1.25rem;
+        margin: 1em 0;
     }
 }

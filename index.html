@@ -21,117 +21,123 @@
 
 <body>
     <main>
-        <section id="jumbotron">
-            <div class="title-section text-center">
-                <h1>Candy Wars</h1>
-                <p>Aliens and Candy Bombs</p>
-                <button type="button" class="start-button" href="#">New Game</button>
 
-            </div>
-        </section>
         <section id="game-screen">
             <div class="row">
-                <div class="player-screen text-center">
-                    <div class="command-menu" id="action-menu01">
-
-                        <div class="command-menu-container">
-
-                        </div>
-
-                        <div class="icon-wrapper">
-                            <h2>Player 1</h2>
-                            <img src="img/player/player_yr.png" />
-                        </div>
-
-                        <div class="counters">
-
-                            <div class="player-counter-section" id="player01-life-icon">
-                                <img src="img/icon/hud_heartFull.png" alt="life for player two" />
-                                <span class="counter-x">x</span><span class="life-point" id="player01-life">100</span>
-                            </div>
-
-                            <div class="player-counter-section" id="player01-weapon-section">
-                                <img id="player01-weapon" src="img/weapon/bean_blue.png" alt="weapon for player two" />
-                                <span class="atk-pt-count" id="player01-atk-pt">10</span><span class="atk-unit">pt</span>
-                            </div>
-                        </div>
-
-                        <div class="player-command-btn">
-                            <input type="checkbox" id="player01-checkbox" />
-                            <div class="player01-commands  hidden_show">
-                                <!--Hidden menu-->
-                                <button type="button" class="btn command-btn attack">Attack</button>
-                                <button type="button" class="btn command-btn defend">Defend</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
 
                 <div class="board-section board-wrapper">
+
+                    <div class="counter-seciton">
+
+                            <div class="player-screen">
+                                    <div class="command-menu" id="action-menu01">
+                
+                                        <div class="command-menu-container">
+                
+                                        </div>
+                
+                                        <div class="icon-wrapper">
+                                            <img src="img/icon/badge_yr.png" />
+                                            <h2>Player 1</h2>
+                                        </div>
+                
+                                        <div class="counters">
+                
+                                            <div class="player-counter-section" id="player01-life-icon">
+                                                <img src="img/icon/hud_heartFull.png" alt="life for player two" />
+                                                <span class="bar-label">HP</span><span class="life-point" id="player01-life">100</span>
+                                            </div>
+                
+                                            <div class="player-counter-section" id="player01-weapon-section">
+                                                <img id="player01-weapon" src="img/weapon/bean_blue.png" alt="weapon for player two" />
+                                                <span class="bar-label">AP</span><span class="atk-pt-count" id="player01-atk-pt">10</span>
+                                            </div>
+                                        </div>
+                
+                                        <div class="player-command-btn">
+                                            <input type="checkbox" id="player01-checkbox" />
+                                            <div class="player01-commands  hidden_show">
+                                                <!--Hidden menu-->
+                                                <h3>Player 1</h3>
+                                                <button type="button" class="btn command-btn attack">Attack</button>
+                                                <button type="button" class="btn command-btn defend">Defend</button>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            <div class="player-screen">
+                                    <div class="command-menu" id="action-menu02">
+                                        <div class="icon-wrapper">
+                                            <img src="img/icon/badge_gr.png" />
+                                            <h2>Player 2</h2>
+                                        </div>
+                
+                                        <div class="counters">
+                
+                                            <div class="player-counter-section" id="player02-life-icon">
+                                                <img src="img/icon/hud_heartFull.png" alt="life for player two" />
+                                                <span class="bar-label">HP</span><span class="life-point" id="player02-life">100</span>
+                                            </div>
+                
+                                            <div class="player-counter-section" id="player02-weapon-section">
+                                                <img id="player02-weapon" src="img/weapon/bean_blue.png" alt="weapon for player two" />
+                                                <span class="bar-label">AP</span><span class="atk-pt-count" id="player02-atk-pt">10</span>
+                                            </div>
+                                        </div>
+                
+                                        <div class="player-command-btn">
+                                            <input type="checkbox" id="player02-checkbox" />
+                                            <div class="player02-commands  hidden_show">
+                                                <!--Hidden menu-->
+                                                <h3>Player 2</h3>
+                                                <button type="button" class="btn command-btn attack">Attack</button>
+                                                <button type="button" class="btn command-btn defend">Defend</button>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
 
                     <div class="row board">
 
                     </div>
 
-                    <div class="weapon-list-section">
-                        <h3>Weapon: </h3>
-                        <div class="weapon-item">
-                            <img src="./img/weapon/bean_blue.png" alt="image for weapon one" />
-                            <span>10 pt</span>                                
-                        </div>
+                    <div class="board-below">
 
-                        <div class="weapon-item">
-                            <img src="./img/weapon/bean_green.png" alt="image for weapon two" />
-                            <span>20 pt</span>                                
-                        </div>                            
-
-                        <div class="weapon-item">
-                            <img src="./img/weapon/jelly_yellow.png" alt="image for weapon three" />
-                            <span>30 pt</span>                                
+                        <div class="weapon-list-section">
+                            <h3>Weapon: </h3>
+                            <div class="weapon-item">
+                                <img src="./img/weapon/bean_blue.png" alt="image for weapon one" />
+                                <span>10 pt</span>                                
+                            </div>
+    
+                            <div class="weapon-item">
+                                <img src="./img/weapon/bean_green.png" alt="image for weapon two" />
+                                <span>20 pt</span>                                
+                            </div>                            
+    
+                            <div class="weapon-item">
+                                <img src="./img/weapon/jelly_yellow.png" alt="image for weapon three" />
+                                <span>30 pt</span>                                
+                            </div>
+        
+                            <div class="weapon-item">
+                                <img src="./img/weapon/wrappedtrans_red.png" alt="image for weapon four" />
+                                <span>40 pt</span>                                
+                            </div>
+    
                         </div>
     
-                        <div class="weapon-item">
-                            <img src="./img/weapon/wrappedtrans_red.png" alt="image for weapon four" />
-                            <span>40 pt</span>                                
-                        </div>
-
+                        <button type="button" class="start-button" href="#">New Game</button>
+                        
                     </div>
 
                 </div>
 
-                <div class="player-screen text-center">
-                    <div class="command-menu" id="action-menu02">
-                        <div class="icon-wrapper">
-                            <h2>Player 2</h2>
-                            <img src="img/player/player_gr.png" />
-                        </div>
-
-                        <div class="counters">
-
-                            <div class="player-counter-section" id="player02-life-icon">
-                                <img src="img/icon/hud_heartFull.png" alt="life for player two" />
-                                <span class="counter-x">x</span><span class="life-point" id="player02-life">100</span>
-                            </div>
-
-                            <div class="player-counter-section" id="player02-weapon-section">
-                                <img id="player02-weapon" src="img/weapon/bean_blue.png" alt="weapon for player two" />
-                                <span class="atk-pt-count" id="player02-atk-pt">10</span><span class="atk-unit">pt</span>
-                            </div>
-                        </div>
-
-                        <div class="player-command-btn">
-                            <input type="checkbox" id="player02-checkbox" />
-                            <div class="player02-commands  hidden_show">
-                                <!--Hidden menu-->
-                                <button type="button" class="btn command-btn attack">Attack</button>
-                                <button type="button" class="btn command-btn defend">Defend</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </section>

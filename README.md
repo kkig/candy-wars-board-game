@@ -18,9 +18,9 @@ Open Classrooms project 6. Turn-based board game with aliens and candys.
 ## Versioning
 
 * **Desktop_ver** - Desktop focused version. Live view: https://kkig.github.io/candy-wars-board-game/
-* **Desktop_ver2** - Desktop focused version optimized to display board.
+* **Desktop_ver2** - Desktop focused version.
 * **Mobile_ver** - Mobile focused version with sticky footer menu.
 
 ## License
 
-Illustration by Arsonide - [License (CC0)] (http://creativecommons.org/publicdomain/zero/1.0/)
+Illustration by Arsonide - License (CC0) (http://creativecommons.org/publicdomain/zero/1.0/)
