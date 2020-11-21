@@ -23,7 +23,7 @@ https://kkig.github.io/candy-wars-board-game/
 
 ## Features
 
-<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-moves.png?raw=true" width="400" alt="detail of the field"/>
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-moves.png?raw=true" width="60%" alt="detail of the field"/>
 
 ### Move Player
 
@@ -31,20 +31,20 @@ https://kkig.github.io/candy-wars-board-game/
 
 ### Select Command
 
-<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-cmd.png?raw=true" alt="detail of the command"/>
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-cmd.png?raw=true" width="35%" alt="detail of the command"/>
 
 - When players touch, player can select to fight or prepare for damage by selecting defend.
 
 ### Get Weapon
 
-<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-atkPt.png?raw=true" alt="detail of the weapons"/>
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-atkPt.png?raw=true" width="70%" alt="detail of the weapons"/>
 
 - When game starts, player has blue jelley bomb as weapon.
 - Player can change bombs, but only one weapon(Candy) can be hold.
 
 ### Player Status
 
-<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-life.png?raw=true" alt="detail of the status"/>
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-life.png?raw=true" width="40%" alt="detail of the status"/>
 
 - Each player has two bars.
 - Life - displays how much life point is left. When life reached 0, it's game over.
