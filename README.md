@@ -1,26 +1,59 @@
 # Candy Wars
 
-Open Classrooms project 6. Turn-based board game with aliens and candys.
+![candy wars top](https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-top.png?raw=true)
 
-## Rules
+Responsive turn-based board game with aliens and candys.
 
-* Each turn, player can move up to 3 cells.
-* Players can hold one weapon(Candy) because aliens have small hands. 
-* When players touch, player can select to fight or prepare for damage by selecting defend.
+### Demo
 
-## Built With
+https://kkig.github.io/candy-wars-board-game/
 
-* CSS3 / HTML5
-* CSS variables 
-* JavaScript
-* jQuery
+### Built With
 
-## Versioning
+- CSS3 / HTML5
+- CSS variables
+- JavaScript
+- jQuery
 
-* **Desktop_ver** - Desktop focused version. Live view: https://kkig.github.io/candy-wars-board-game/
-* **Desktop_ver2** - Desktop focused version.
-* **Mobile_ver** - Mobile focused version with sticky footer menu.
+## Game Rules
+
+- Each turn, player can move up to 3 cells.
+- Players can hold one weapon(Candy) because aliens have small hands.
+- When players touch, player can select to fight or prepare for damage by selecting defend.
+
+## Features
+
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-moves.png?raw=true" width="400" alt="detail of the field"/>
+
+### Move Player
+
+- Each turn, player can move up to 3 cells.
+
+### Select Command
+
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-cmd.png?raw=true" alt="detail of the command"/>
+
+- When players touch, player can select to fight or prepare for damage by selecting defend.
+
+### Get Weapon
+
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-atkPt.png?raw=true" alt="detail of the weapons"/>
+
+- When game starts, player has blue jelley bomb as weapon.
+- Player can change bombs, but only one weapon(Candy) can be hold.
+
+### Player Status
+
+<img src="https://github.com/kkig/candy-wars-board-game/blob/master/README/candy-wars-life.png?raw=true" alt="detail of the status"/>
+
+- Each player has two bars.
+- Life - displays how much life point is left. When life reached 0, it's game over.
+- Weapon - displays attack points of current weapon.
 
 ## License
 
 Illustration by Arsonide - License (CC0) (http://creativecommons.org/publicdomain/zero/1.0/)
+
+## Acknowledgments
+
+- [jQuery](https://jquery.com/)
